@@ -6,22 +6,22 @@ namespace SistemGradum.Application.Services;
 
 public class ClienteService : IClienteService
 {
-    private readonly IClienteRepository _clienteRepository;
+    private readonly IClienteRepository clienteRepository;
 
     public ClienteService(IClienteRepository clienteRepository)
     {
-        _clienteRepository = clienteRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     public async Task<List<ClienteResponseDto>> GetAllAsync()
     {
-        var clientes = await _clienteRepository.GetAllAsync();
+        var clientes = await this.clienteRepository.GetAllAsync();
         return clientes.Select(MapToResponse).ToList();
     }
 
     public async Task<ClienteResponseDto?> GetByIdAsync(int id)
     {
-        var cliente = await _clienteRepository.GetByIdAsync(id);
+        var cliente = await this.clienteRepository.GetByIdAsync(id);
         return cliente is null || !cliente.Activo ? null : MapToResponse(cliente);
     }
 
@@ -39,15 +39,15 @@ public class ClienteService : IClienteService
             Activo = true
         };
 
-        await _clienteRepository.AddAsync(cliente);
-        await _clienteRepository.SaveChangesAsync();
+        await this.clienteRepository.AddAsync(cliente);
+        await this.clienteRepository.SaveChangesAsync();
 
         return MapToResponse(cliente);
     }
 
     public async Task<(bool Success, string? Error)> UpdateAsync(int id, UpdateClienteDto dto)
     {
-        var cliente = await _clienteRepository.GetByIdAsync(id);
+        var cliente = await this.clienteRepository.GetByIdAsync(id);
         if (cliente is null || !cliente.Activo)
             return (false, "Cliente no encontrado.");
 
@@ -57,8 +57,8 @@ public class ClienteService : IClienteService
         cliente.Email = dto.Email;
         cliente.EstadoFinanciero = dto.EstadoFinanciero;
 
-        await _clienteRepository.UpdateAsync(cliente);
-        await _clienteRepository.SaveChangesAsync();
+        await this.clienteRepository.UpdateAsync(cliente);
+        await this.clienteRepository.SaveChangesAsync();
 
         return (true, null);
     }
@@ -66,21 +66,21 @@ public class ClienteService : IClienteService
     public async Task<(bool Success, string? Error)> DeleteAsync(int id)
     {
         // RF-003: "desactivar clientes, manteniendo su historial de proyectos intacto"
-        var cliente = await _clienteRepository.GetByIdAsync(id);
+        var cliente = await this.clienteRepository.GetByIdAsync(id);
         if (cliente is null || !cliente.Activo)
             return (false, "Cliente no encontrado.");
 
         cliente.Activo = false;
 
-        await _clienteRepository.UpdateAsync(cliente);
-        await _clienteRepository.SaveChangesAsync();
+        await this.clienteRepository.UpdateAsync(cliente);
+        await this.clienteRepository.SaveChangesAsync();
 
         return (true, null);
     }
 
     private async Task<string> GenerarCodigoAsync()
     {
-        var siguiente = await _clienteRepository.CountAsync() + 1;
+        var siguiente = await this.clienteRepository.CountAsync() + 1;
         return $"CLI-{siguiente:D4}"; // CLI-0001, CLI-0002, ...
     }
 
@@ -96,4 +96,18 @@ public class ClienteService : IClienteService
         EstadoFinanciero = c.EstadoFinanciero,
         Activo = c.Activo
     };
+    public async Task<bool> ReactivarAsync(int id)
+{
+    var cliente = await this.clienteRepository.GetByIdAsync(id);
+
+    if (cliente is null || cliente.Activo)
+        return false;   // no existe, o ya estaba activo
+
+    cliente.Activo = true;
+
+    await this.clienteRepository.UpdateAsync(cliente);
+    await this.clienteRepository.SaveChangesAsync();
+
+    return true;
+}
 }

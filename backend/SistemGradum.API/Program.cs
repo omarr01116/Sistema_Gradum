@@ -80,6 +80,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IAsesorRepository, AsesorRepository>();
+builder.Services.AddScoped<IAsesorService, AsesorService>();
 
 var app = builder.Build();
 

@@ -63,4 +63,14 @@ public class ClienteController : ControllerBase
 
         return NoContent();
     }
+    [HttpPatch("{id:int}/reactivar")]
+    [Authorize(Roles = "Administrador,Coordinador")]
+    public async Task<IActionResult> Reactivar(int id)
+    {
+        var reactivado = await _clienteService.ReactivarAsync(id);
+
+        return reactivado
+            ? NoContent()
+            : NotFound();
+    }
 }

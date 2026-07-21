@@ -9,4 +9,5 @@ public interface IClienteService
     Task<ClienteResponseDto> CreateAsync(CreateClienteDto dto);
     Task<(bool Success, string? Error)> UpdateAsync(int id, UpdateClienteDto dto);
     Task<(bool Success, string? Error)> DeleteAsync(int id);
+    Task<bool> ReactivarAsync(int id); 
 }
