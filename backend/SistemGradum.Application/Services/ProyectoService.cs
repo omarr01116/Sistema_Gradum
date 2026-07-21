@@ -92,11 +92,13 @@ public class ProyectoService : IProyectoService
         if (proyecto is null)
             return false;
 
+        // Chequeo movido aquí: bloquea CUALQUIER edición si el proyecto ya está Finalizado,
+        // no solo cuando se intenta reasignar el asesor.
+        if (proyecto.EstadoProyecto == "Finalizado")
+            throw new ReglaNegocioException("No se puede modificar un proyecto en estado Finalizado.");
+
         if (proyecto.AsesorId != dto.AsesorId)
         {
-            if (proyecto.EstadoProyecto == "Finalizado")
-                throw new ReglaNegocioException("No se puede reasignar el asesor de un proyecto Finalizado.");
-
             var nuevoAsesor = await this.asesorRepository.GetByIdAsync(dto.AsesorId);
             if (nuevoAsesor is null || !nuevoAsesor.Activo)
                 throw new ReglaNegocioException("El nuevo asesor indicado no existe o está inactivo.");

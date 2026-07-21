@@ -45,6 +45,16 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // 3. DbContext — PostgreSQL (Npgsql)
 var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<SistemGradumDbContext>(options =>
@@ -109,6 +119,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("FrontendDev");
 
 app.UseAuthentication(); // primero autentica
 app.UseAuthorization();  // luego autoriza — el orden importa
