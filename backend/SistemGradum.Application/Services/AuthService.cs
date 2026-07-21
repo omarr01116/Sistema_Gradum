@@ -7,11 +7,14 @@ public class AuthService : IAuthService
 {
     private readonly IUsuarioRepository usuarioRepository;
     private readonly ITokenService tokenService;
+    private readonly IAlertaService alertaService;
 
-    public AuthService(IUsuarioRepository usuarioRepository, ITokenService tokenService)
+    public AuthService(
+        IUsuarioRepository usuarioRepository, ITokenService tokenService, IAlertaService alertaService)
     {
         this.usuarioRepository = usuarioRepository;
         this.tokenService = tokenService;
+        this.alertaService = alertaService;
     }
 
     public async Task<LoginResponseDto?> LoginAsync(LoginRequestDto request)
@@ -27,6 +30,10 @@ public class AuthService : IAuthService
             return null;
 
         var token = this.tokenService.GenerarToken(usuario);
+
+        // RF-022: genera alertas al iniciar sesión (no como proceso en segundo plano).
+        var asesorIdFiltro = usuario.Rol == "Asesor" ? usuario.AsesorId : null;
+        await this.alertaService.GenerarAlertasAsync(usuario.Id, usuario.Rol, asesorIdFiltro);
 
         return new LoginResponseDto
         {

@@ -19,6 +19,7 @@ public class AlertaConfiguration : IEntityTypeConfiguration<Alerta>
         // Se indexan porque RF-022 consulta alertas por usuario destino
         // en cada login.
         builder.HasIndex(a => a.UsuarioDestinoId);
+        builder.HasIndex(a => new { a.UsuarioDestinoId, a.Leida });
         builder.HasIndex(a => a.ProyectoId);
         builder.HasIndex(a => a.HitoId);
     }

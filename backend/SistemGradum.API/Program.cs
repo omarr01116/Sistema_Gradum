@@ -93,6 +93,11 @@ builder.Services.AddScoped<IDocumentoService, DocumentoService>();
 builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoArchivos>();   // ← antes: solo AlmacenamientoArchivos
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IObservacionRepository, ObservacionRepository>();
+builder.Services.AddScoped<IObservacionService, ObservacionService>();
+builder.Services.AddScoped<IAlertaRepository, AlertaRepository>();
+builder.Services.AddScoped<IAlertaService, AlertaService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 var app = builder.Build();
 
