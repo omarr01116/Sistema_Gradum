@@ -27,4 +27,8 @@ public class Hito
     public int? UsuarioAprobadorId { get; set; }
     public DateTime? FechaAprobacion { get; set; }
     public string? RazonRechazo { get; set; }
+
+    // Referencia temporal a la evidencia (Commit 10). Se reemplaza por el
+    // mecanismo real de Documento/VersionDocumento en el Commit 11.
+    public string? RutaEvidenciaTemporal { get; set; }
 }

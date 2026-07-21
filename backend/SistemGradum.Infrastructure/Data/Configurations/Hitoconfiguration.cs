@@ -13,11 +13,6 @@ public class HitoConfiguration : IEntityTypeConfiguration<Hito>
 
         builder.Property(h => h.NombreHito).HasMaxLength(200).IsRequired();
         builder.Property(h => h.PesoPorcentual).HasColumnType("decimal(5,2)");
-
-        // Fecha de calendario pura: mismo fix aplicado en Proyecto (Commit 7)
-        // para evitar el error de Npgsql con Kind=Unspecified.
-        builder.Property(h => h.FechaCompromiso).HasColumnType("date");
-
         builder.Property(h => h.EstadoHito).HasMaxLength(30).IsRequired();
         builder.Property(h => h.RazonRechazo).HasMaxLength(500);
 
@@ -31,5 +26,11 @@ public class HitoConfiguration : IEntityTypeConfiguration<Hito>
         // Referencias débiles a Usuario, sin FK física (ver justificación).
         builder.HasIndex(h => h.UsuarioCompletadoId);
         builder.HasIndex(h => h.UsuarioAprobadorId);
+
+        // Fecha de calendario pura: mismo fix aplicado en Proyecto (Commit 7)
+        // para evitar el error de Npgsql con Kind=Unspecified.
+        builder.Property(h => h.FechaCompromiso).HasColumnType("date");
+
+        builder.Property(h => h.RutaEvidenciaTemporal).HasMaxLength(500);
     }
 }

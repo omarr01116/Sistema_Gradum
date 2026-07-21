@@ -10,5 +10,6 @@ public interface IHitoRepository
     Task UpdateAsync(Hito hito);
     Task DeleteAsync(Hito hito);
     Task<bool> ExisteHitoAprobadoEnProyectoAsync(int proyectoId);
+    Task<decimal> SumaPesoAprobadoAsync(int proyectoId);   // ← nuevo, RF-008
     Task SaveChangesAsync();
 }

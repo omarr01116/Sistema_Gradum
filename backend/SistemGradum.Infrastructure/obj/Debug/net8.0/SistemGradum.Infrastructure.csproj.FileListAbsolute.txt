@@ -17,22 +17,3 @@ D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\refi
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.pdb
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.genruntimeconfig.cache
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\ref\SistemGradum.Infrastructure.dll
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.deps.json
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.runtimeconfig.json
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.dll
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.pdb
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Application.dll
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Domain.dll
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Application.pdb
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Domain.pdb
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.csproj.AssemblyReference.cache
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.AssemblyInfoInputs.cache
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.AssemblyInfo.cs
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.csproj.CoreCompileInputs.cache
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGr.B7893F8C.Up2Date
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.dll
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\refint\SistemGradum.Infrastructure.dll
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.pdb
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.genruntimeconfig.cache
-D:\versiones ultimo\version9\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\ref\SistemGradum.Infrastructure.dll

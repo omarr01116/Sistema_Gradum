@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using SistemGradum.Application.DTOs.Hito;
 using SistemGradum.Application.Exceptions;
 using SistemGradum.Application.Interfaces;
@@ -86,5 +87,64 @@ public class HitoController : ControllerBase
         return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
             ? asesorId
             : null;
+    }
+
+    // PATCH /api/hito/{id}/completar — RF-009
+    [HttpPatch("hito/{id:int}/completar")]
+    [Authorize(Roles = "Asesor")]
+    public async Task<IActionResult> Completar(int id, CompletarHitoDto dto)
+    {
+        var usuarioIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (usuarioIdClaim is null || !int.TryParse(usuarioIdClaim, out var usuarioId))
+            return Unauthorized();
+
+        var (success, error) = await this.hitoService.CompletarAsync(id, dto, usuarioId, this.ObtenerAsesorIdFiltro());
+
+        if (!success)
+        {
+            return error == "Hito no encontrado."
+                ? NotFound(new { mensaje = error })
+                : BadRequest(new { mensaje = error });
+        }
+
+        return NoContent();
+    }
+
+    // PATCH /api/hito/{id}/aprobar — RF-010
+    [HttpPatch("hito/{id:int}/aprobar")]
+    [Authorize(Roles = "Coordinador")]
+    public async Task<IActionResult> Aprobar(int id)
+    {
+        var usuarioIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (usuarioIdClaim is null || !int.TryParse(usuarioIdClaim, out var usuarioId))
+            return Unauthorized();
+
+        var (success, error) = await this.hitoService.AprobarAsync(id, usuarioId);
+
+        if (!success)
+        {
+            return error == "Hito no encontrado."
+                ? NotFound(new { mensaje = error })
+                : BadRequest(new { mensaje = error });
+        }
+
+        return NoContent();
+    }
+
+    // PATCH /api/hito/{id}/rechazar — RN-05
+    [HttpPatch("hito/{id:int}/rechazar")]
+    [Authorize(Roles = "Coordinador")]
+    public async Task<IActionResult> Rechazar(int id, RechazarHitoDto dto)
+    {
+        var (success, error) = await this.hitoService.RechazarAsync(id, dto);
+
+        if (!success)
+        {
+            return error == "Hito no encontrado."
+                ? NotFound(new { mensaje = error })
+                : BadRequest(new { mensaje = error });
+        }
+
+        return NoContent();
     }
 }

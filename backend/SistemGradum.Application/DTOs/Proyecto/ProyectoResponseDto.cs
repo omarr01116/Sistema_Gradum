@@ -14,5 +14,7 @@ public class ProyectoResponseDto
     public DateTime FechaInicio { get; set; }
     public DateTime FechaEntregaComprometida { get; set; }
     public string EstadoProyecto { get; set; } = string.Empty;
-    public DateTime? FechaUltimoCambio { get; set; } 
+    public DateTime? FechaUltimoCambio { get; set; }
+
+    public decimal PorcentajeAvance { get; set; }   // ← nuevo, RF-008 
 }

@@ -22,7 +22,6 @@ public class HitoService : IHitoService
         if (proyecto is null)
             return null;
 
-        // RN-08: un Asesor solo ve hitos de sus propios proyectos.
         if (asesorIdFiltro.HasValue && proyecto.AsesorId != asesorIdFiltro.Value)
             return null;
 
@@ -44,7 +43,6 @@ public class HitoService : IHitoService
             throw new ReglaNegocioException(
                 "El proyecto ya tiene hitos definidos. Use PUT /api/hito/{id} para editarlos individualmente.");
 
-        // RN-04: la suma de pesos debe ser exactamente 100%.
         var suma = dto.Hitos.Sum(h => h.PesoPorcentual);
         if (suma != 100)
             throw new ReglaNegocioException(
@@ -77,7 +75,6 @@ public class HitoService : IHitoService
             if (hito.EstadoHito == "Aprobado")
                 return (false, "No se puede modificar el peso de un hito ya aprobado.");
 
-            // RN-04: recalcular la suma total del proyecto con el nuevo peso.
             var otrosHitos = await this.hitoRepository.GetByProyectoIdAsync(hito.ProyectoId);
             var sumaSinEste = otrosHitos.Where(h => h.Id != id).Sum(h => h.PesoPorcentual);
             var nuevaSuma = sumaSinEste + dto.PesoPorcentual;
@@ -104,14 +101,94 @@ public class HitoService : IHitoService
         if (hito is null)
             return (false, "Hito no encontrado.");
 
-        // No se elimina si el proyecto ya tiene algún hito aprobado
-        // (rompería el cálculo de avance ya realizado, RF-008).
         var yaTieneAprobados = await this.hitoRepository.ExisteHitoAprobadoEnProyectoAsync(hito.ProyectoId);
         if (yaTieneAprobados)
             return (false,
                 "No se pueden eliminar hitos de un proyecto que ya tiene hitos aprobados.");
 
         await this.hitoRepository.DeleteAsync(hito);
+        await this.hitoRepository.SaveChangesAsync();
+
+        return (true, null);
+    }
+
+    // RF-009: el Asesor marca el hito como completado.
+    public async Task<(bool Success, string? Error)> CompletarAsync(
+        int id, CompletarHitoDto dto, int usuarioId, int? asesorIdFiltro)
+    {
+        var hito = await this.hitoRepository.GetByIdAsync(id);
+        if (hito is null)
+            return (false, "Hito no encontrado.");
+
+        var proyecto = await this.proyectoRepository.GetByIdAsync(hito.ProyectoId);
+        if (proyecto is null)
+            return (false, "El proyecto asociado a este hito no existe.");
+
+        // RN-08: el Asesor solo puede completar hitos de proyectos donde es el asignado.
+        if (asesorIdFiltro.HasValue && proyecto.AsesorId != asesorIdFiltro.Value)
+            return (false, "Hito no encontrado.");
+
+        if (hito.EstadoHito is not ("Pendiente" or "EnProgreso"))
+            return (false,
+                $"No se puede completar un hito en estado '{hito.EstadoHito}'. Debe estar en 'Pendiente' o 'EnProgreso'.");
+
+        hito.EstadoHito = "PendienteAprobacion";
+        hito.UsuarioCompletadoId = usuarioId;
+        hito.FechaCompletado = DateTime.UtcNow;
+        hito.RutaEvidenciaTemporal = dto.RutaEvidenciaTemporal;
+
+        await this.hitoRepository.UpdateAsync(hito);
+        await this.hitoRepository.SaveChangesAsync();
+
+        return (true, null);
+    }
+
+    // RF-010 / RN-05: el Coordinador aprueba el hito.
+    public async Task<(bool Success, string? Error)> AprobarAsync(int id, int usuarioId)
+    {
+        var hito = await this.hitoRepository.GetByIdAsync(id);
+        if (hito is null)
+            return (false, "Hito no encontrado.");
+
+        if (hito.EstadoHito != "PendienteAprobacion")
+            return (false,
+                $"No se puede aprobar un hito en estado '{hito.EstadoHito}'. Debe estar en 'PendienteAprobacion'.");
+
+        hito.EstadoHito = "Aprobado";
+        hito.UsuarioAprobadorId = usuarioId;
+        hito.FechaAprobacion = DateTime.UtcNow;
+        hito.RazonRechazo = null;
+
+        await this.hitoRepository.UpdateAsync(hito);
+        await this.hitoRepository.SaveChangesAsync();
+
+        // RF-008: el recálculo de avance no se guarda aquí — se calcula al vuelo
+        // cada vez que se consulta el Proyecto (ver ProyectoService.MapToResponseAsync).
+
+        return (true, null);
+    }
+
+    // RF-010 / RN-05: el Coordinador rechaza el hito, con motivo obligatorio.
+    public async Task<(bool Success, string? Error)> RechazarAsync(int id, RechazarHitoDto dto)
+    {
+        var hito = await this.hitoRepository.GetByIdAsync(id);
+        if (hito is null)
+            return (false, "Hito no encontrado.");
+
+        if (hito.EstadoHito != "PendienteAprobacion")
+            return (false,
+                $"No se puede rechazar un hito en estado '{hito.EstadoHito}'. Debe estar en 'PendienteAprobacion'.");
+
+        if (string.IsNullOrWhiteSpace(dto.Motivo))
+            return (false, "Debe indicar el motivo del rechazo.");
+
+        // RN-05: regresa a "EnProgreso"; el asesor deberá completarlo de nuevo.
+        hito.EstadoHito = "EnProgreso";
+        hito.RazonRechazo = dto.Motivo;
+        hito.UsuarioCompletadoId = null;
+        hito.FechaCompletado = null;
+
+        await this.hitoRepository.UpdateAsync(hito);
         await this.hitoRepository.SaveChangesAsync();
 
         return (true, null);
@@ -130,6 +207,7 @@ public class HitoService : IHitoService
         FechaCompletado = h.FechaCompletado,
         UsuarioAprobadorId = h.UsuarioAprobadorId,
         FechaAprobacion = h.FechaAprobacion,
-        RazonRechazo = h.RazonRechazo
+        RazonRechazo = h.RazonRechazo,
+        RutaEvidenciaTemporal = h.RutaEvidenciaTemporal
     };
 }

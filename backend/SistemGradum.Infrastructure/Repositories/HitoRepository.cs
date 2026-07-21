@@ -56,4 +56,11 @@ public class HitoRepository : IHitoRepository
     {
         await this.context.SaveChangesAsync();
     }
+
+    public async Task<decimal> SumaPesoAprobadoAsync(int proyectoId)
+    {
+        return await this.context.Hitos
+            .Where(h => h.ProyectoId == proyectoId && h.EstadoHito == "Aprobado")
+            .SumAsync(h => h.PesoPorcentual);
+    }
 }

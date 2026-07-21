@@ -14,4 +14,6 @@ public class HitoResponseDto
     public int? UsuarioAprobadorId { get; set; }
     public DateTime? FechaAprobacion { get; set; }
     public string? RazonRechazo { get; set; }
+
+    public string? RutaEvidenciaTemporal { get; set; }
 }

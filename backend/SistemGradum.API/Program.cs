@@ -88,7 +88,6 @@ builder.Services.AddScoped<IProyectoService, ProyectoService>();
 builder.Services.AddScoped<IHitoRepository, HitoRepository>();
 builder.Services.AddScoped<IHitoService, HitoService>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
