@@ -21,6 +21,12 @@ public class ProyectoConfiguration : IEntityTypeConfiguration<Proyecto>
         builder.Property(p => p.Tema).HasMaxLength(300).IsRequired();
         builder.Property(p => p.EstadoProyecto).HasMaxLength(20).IsRequired();
 
+        // Fechas de calendario puras: sin hora ni zona horaria.
+        // Evita el error de Npgsql "Cannot write DateTime with Kind=Unspecified
+        // to PostgreSQL type 'timestamp with time zone'".
+        builder.Property(p => p.FechaInicio).HasColumnType("date");
+        builder.Property(p => p.FechaEntregaComprometida).HasColumnType("date");
+
         // RN-01: obligatorio, un proyecto siempre pertenece a un cliente.
         // Restrict: Cliente se desactiva (campo Activo), no se borra físicamente,
         // así que no necesitamos (ni queremos) cascada aquí.

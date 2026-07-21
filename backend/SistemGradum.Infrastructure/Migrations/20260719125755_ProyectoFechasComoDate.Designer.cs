@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SistemGradum.Infrastructure.Data;
@@ -11,9 +12,11 @@ using SistemGradum.Infrastructure.Data;
 namespace SistemGradum.Infrastructure.Migrations
 {
     [DbContext(typeof(SistemGradumDbContext))]
-    partial class SistemGradumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260719125755_ProyectoFechasComoDate")]
+    partial class ProyectoFechasComoDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
