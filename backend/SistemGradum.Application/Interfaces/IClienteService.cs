@@ -6,8 +6,8 @@ public interface IClienteService
 {
     Task<List<ClienteResponseDto>> GetAllAsync();
     Task<ClienteResponseDto?> GetByIdAsync(int id);
-    Task<ClienteResponseDto> CreateAsync(CreateClienteDto dto);
+    Task<(ClienteResponseDto? Cliente, string? Error)> CreateAsync(CreateClienteDto dto);
     Task<(bool Success, string? Error)> UpdateAsync(int id, UpdateClienteDto dto);
     Task<(bool Success, string? Error)> DeleteAsync(int id);
-    Task<bool> ReactivarAsync(int id); 
+    Task<bool> ReactivarAsync(int id);
 }

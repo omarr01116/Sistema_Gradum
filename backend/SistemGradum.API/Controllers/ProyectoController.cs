@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemGradum.Application.DTOs.Proyecto;
@@ -21,14 +22,14 @@ public class ProyectoController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var proyectos = await this.proyectoService.GetAllAsync();
+        var proyectos = await this.proyectoService.GetAllAsync(ObtenerAsesorIdFiltro());
         return Ok(proyectos);
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var proyecto = await this.proyectoService.GetByIdAsync(id);
+        var proyecto = await this.proyectoService.GetByIdAsync(id, ObtenerAsesorIdFiltro());
         return proyecto is null ? NotFound() : Ok(proyecto);
     }
 
@@ -61,4 +62,36 @@ public class ProyectoController : ControllerBase
             return BadRequest(new { mensaje = ex.Message });
         }
     }
+
+    [HttpPatch("{id:int}/estado")]
+    [Authorize(Roles = "Coordinador")]
+    public async Task<IActionResult> CambiarEstado(int id, CambiarEstadoDto dto)
+    {
+        var usuarioIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (usuarioIdClaim is null || !int.TryParse(usuarioIdClaim, out var usuarioId))
+            return Unauthorized();
+
+        try
+        {
+            var actualizado = await this.proyectoService.CambiarEstadoAsync(id, dto, usuarioId);
+            return actualizado ? NoContent() : NotFound();
+        }
+        catch (ReglaNegocioException ex)
+        {
+            return BadRequest(new { mensaje = ex.Message });
+        }
+    }
+
+    // RN-08: si el usuario logueado es Asesor, devuelve su IdAsesor (del claim del JWT)
+    // para que el Service filtre. Si es Coordinador/Administrador, devuelve null (ve todo).
+    private int? ObtenerAsesorIdFiltro()
+{
+    if (!User.IsInRole("Asesor"))
+        return null;
+
+    var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
+    return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
+        ? asesorId
+        : null;
+}
 }

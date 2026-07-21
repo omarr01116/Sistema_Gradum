@@ -12,6 +12,16 @@ public class ProyectoService : IProyectoService
     private readonly IAsesorRepository asesorRepository;
     private readonly IConfiguracionSistemaRepository configuracionRepository;
 
+    // RN-06: diccionario de transiciones válidas (sección 8 del Word).
+    private static readonly Dictionary<string, string[]> TransicionesValidas = new()
+    {
+        ["Activo"] = new[] { "Pausado", "Correcciones", "Sustentado" },
+        ["Pausado"] = new[] { "Activo" },
+        ["Correcciones"] = new[] { "Activo" },
+        ["Sustentado"] = new[] { "Finalizado" },
+        ["Finalizado"] = Array.Empty<string>()
+    };
+
     public ProyectoService(
         IProyectoRepository proyectoRepository,
         IClienteRepository clienteRepository,
@@ -24,31 +34,41 @@ public class ProyectoService : IProyectoService
         this.configuracionRepository = configuracionRepository;
     }
 
-    public async Task<List<ProyectoResponseDto>> GetAllAsync()
+    public async Task<List<ProyectoResponseDto>> GetAllAsync(int? asesorIdFiltro)
     {
         var proyectos = await this.proyectoRepository.GetAllAsync();
+
+        // RN-08: un Asesor solo ve sus propios proyectos.
+        if (asesorIdFiltro.HasValue)
+            proyectos = proyectos.Where(p => p.AsesorId == asesorIdFiltro.Value).ToList();
+
         return proyectos.Select(MapToResponse).ToList();
     }
 
-    public async Task<ProyectoResponseDto?> GetByIdAsync(int id)
+    public async Task<ProyectoResponseDto?> GetByIdAsync(int id, int? asesorIdFiltro)
     {
         var proyecto = await this.proyectoRepository.GetByIdAsync(id);
-        return proyecto is null ? null : MapToResponse(proyecto);
+
+        if (proyecto is null)
+            return null;
+
+        // RN-08: si es un Asesor y el proyecto no es suyo, se trata como si no existiera.
+        if (asesorIdFiltro.HasValue && proyecto.AsesorId != asesorIdFiltro.Value)
+            return null;
+
+        return MapToResponse(proyecto);
     }
 
     public async Task<ProyectoResponseDto> CreateAsync(CreateProyectoDto dto)
     {
-        // RN-01: el cliente debe existir y estar activo
         var cliente = await this.clienteRepository.GetByIdAsync(dto.ClienteId);
         if (cliente is null || !cliente.Activo)
             throw new ReglaNegocioException("El cliente indicado no existe o está inactivo.");
 
-        // El asesor debe existir y estar activo
         var asesor = await this.asesorRepository.GetByIdAsync(dto.AsesorId);
         if (asesor is null || !asesor.Activo)
             throw new ReglaNegocioException("El asesor indicado no existe o está inactivo.");
 
-        // RN-03: validar carga laboral del asesor
         await ValidarDisponibilidadAsesorAsync(dto.AsesorId);
 
         var proyecto = new Proyecto
@@ -78,7 +98,6 @@ public class ProyectoService : IProyectoService
         if (proyecto is null)
             return false;
 
-        // RF-006: reasignar asesor solo si el proyecto no está Finalizado
         if (proyecto.AsesorId != dto.AsesorId)
         {
             if (proyecto.EstadoProyecto == "Finalizado")
@@ -88,7 +107,6 @@ public class ProyectoService : IProyectoService
             if (nuevoAsesor is null || !nuevoAsesor.Activo)
                 throw new ReglaNegocioException("El nuevo asesor indicado no existe o está inactivo.");
 
-            // RN-03: validar carga del nuevo asesor
             await ValidarDisponibilidadAsesorAsync(dto.AsesorId);
 
             proyecto.AsesorId = dto.AsesorId;
@@ -100,6 +118,45 @@ public class ProyectoService : IProyectoService
         proyecto.TipoProyecto = dto.TipoProyecto;
         proyecto.Tema = dto.Tema;
         proyecto.FechaEntregaComprometida = dto.FechaEntregaComprometida;
+
+        await this.proyectoRepository.UpdateAsync(proyecto);
+        await this.proyectoRepository.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> CambiarEstadoAsync(int id, CambiarEstadoDto dto, int usuarioId)
+    {
+        var proyecto = await this.proyectoRepository.GetByIdAsync(id);
+        if (proyecto is null)
+            return false;
+
+        var estadoActual = proyecto.EstadoProyecto;
+        var nuevoEstado = dto.NuevoEstado;
+
+        // RN-06: la transición debe estar en el diccionario de transiciones válidas.
+        if (!TransicionesValidas.TryGetValue(estadoActual, out var permitidas) || !permitidas.Contains(nuevoEstado))
+        {
+            var opciones = permitidas is { Length: > 0 }
+                ? string.Join(", ", permitidas)
+                : "ninguna (es un estado terminal)";
+
+            throw new ReglaNegocioException(
+                $"No se puede cambiar de '{estadoActual}' a '{nuevoEstado}'. Transiciones permitidas desde '{estadoActual}': {opciones}.");
+        }
+
+        // RN-02: bloqueo por deuda al avanzar a Sustentado o Finalizado.
+        if (nuevoEstado is "Sustentado" or "Finalizado")
+        {
+            var cliente = await this.clienteRepository.GetByIdAsync(proyecto.ClienteId);
+            if (cliente is not null && cliente.EstadoFinanciero == "ConDeuda")
+                throw new ReglaNegocioException(
+                    "No se puede avanzar el proyecto porque el cliente tiene estado financiero 'ConDeuda'.");
+        }
+
+        proyecto.EstadoProyecto = nuevoEstado;
+        proyecto.UsuarioUltimoCambioId = usuarioId;
+        proyecto.FechaUltimoCambio = DateTime.UtcNow;
 
         await this.proyectoRepository.UpdateAsync(proyecto);
         await this.proyectoRepository.SaveChangesAsync();
@@ -140,7 +197,8 @@ public class ProyectoService : IProyectoService
             AsesorId = proyecto.AsesorId,
             FechaInicio = proyecto.FechaInicio,
             FechaEntregaComprometida = proyecto.FechaEntregaComprometida,
-            EstadoProyecto = proyecto.EstadoProyecto
+            EstadoProyecto = proyecto.EstadoProyecto,
+            FechaUltimoCambio = proyecto.FechaUltimoCambio
         };
     }
 }

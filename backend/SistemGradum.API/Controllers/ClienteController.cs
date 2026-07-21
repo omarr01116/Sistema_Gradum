@@ -10,18 +10,18 @@ namespace SistemGradum.API.Controllers;
 [Authorize(Roles = "Administrador,Coordinador")] // RF-003: el Asesor no gestiona clientes
 public class ClienteController : ControllerBase
 {
-    private readonly IClienteService _clienteService;
+    private readonly IClienteService clienteService;
 
     public ClienteController(IClienteService clienteService)
     {
-        _clienteService = clienteService;
+        this.clienteService = clienteService;
     }
 
     // GET /api/cliente — RF-003 (Coordinador, Admin)
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var clientes = await _clienteService.GetAllAsync();
+        var clientes = await this.clienteService.GetAllAsync();
         return Ok(clientes);
     }
 
@@ -29,7 +29,7 @@ public class ClienteController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
-        var cliente = await _clienteService.GetByIdAsync(id);
+        var cliente = await this.clienteService.GetByIdAsync(id);
         return cliente is null ? NotFound() : Ok(cliente);
     }
 
@@ -38,17 +38,28 @@ public class ClienteController : ControllerBase
     [Authorize(Roles = "Coordinador")]
     public async Task<IActionResult> Create([FromBody] CreateClienteDto dto)
     {
-        var creado = await _clienteService.CreateAsync(dto);
-        return CreatedAtAction(nameof(GetById), new { id = creado.Id }, creado);
+        var (cliente, error) = await this.clienteService.CreateAsync(dto);
+
+        if (cliente is null)
+            return BadRequest(new { mensaje = error });
+
+        return CreatedAtAction(nameof(GetById), new { id = cliente.Id }, cliente);
     }
 
     // PUT /api/cliente/5 — RF-003 (Coordinador, Admin)
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateClienteDto dto)
     {
-        var (success, error) = await _clienteService.UpdateAsync(id, dto);
+        var (success, error) = await this.clienteService.UpdateAsync(id, dto);
+
         if (!success)
-            return NotFound(new { mensaje = error });
+        {
+            // "Cliente no encontrado." es el único caso que debe dar 404;
+            // cualquier otro mensaje (ej. validación de EstadoFinanciero) es 400.
+            return error == "Cliente no encontrado."
+                ? NotFound(new { mensaje = error })
+                : BadRequest(new { mensaje = error });
+        }
 
         return NoContent();
     }
@@ -57,17 +68,18 @@ public class ClienteController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var (success, error) = await _clienteService.DeleteAsync(id);
+        var (success, error) = await this.clienteService.DeleteAsync(id);
         if (!success)
             return NotFound(new { mensaje = error });
 
         return NoContent();
     }
+
     [HttpPatch("{id:int}/reactivar")]
     [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Reactivar(int id)
     {
-        var reactivado = await _clienteService.ReactivarAsync(id);
+        var reactivado = await this.clienteService.ReactivarAsync(id);
 
         return reactivado
             ? NoContent()
