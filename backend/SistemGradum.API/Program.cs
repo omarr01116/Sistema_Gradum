@@ -1,6 +1,8 @@
 using SistemGradum.Application.Interfaces;
 using SistemGradum.Application.Services;
 using SistemGradum.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using SistemGradum.Infrastructure.Data;
 // Asegúrate de incluir los namespaces correctos donde tengas AuthService y TokenService
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>(); 
+var connectionString = builder.Configuration.GetConnectionString("Default");
+
+builder.Services.AddDbContext<SistemGradumDbContext>(options =>
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36))));
 
 var app = builder.Build();
 
