@@ -85,13 +85,16 @@ public class ProyectoController : ControllerBase
     // RN-08: si el usuario logueado es Asesor, devuelve su IdAsesor (del claim del JWT)
     // para que el Service filtre. Si es Coordinador/Administrador, devuelve null (ve todo).
     private int? ObtenerAsesorIdFiltro()
-{
-    if (!User.IsInRole("Asesor"))
-        return null;
+    {
+        if (!User.IsInRole("Asesor"))
+            return null;
 
-    var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
-    return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
-        ? asesorId
-        : null;
-}
+        var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
+        if (asesorIdClaim is null || !int.TryParse(asesorIdClaim, out var asesorId))
+        {
+            throw new UnauthorizedAccessException("El claim AsesorId es inválido o no existe en la sesión actual.");
+        }
+
+        return asesorId;
+    }
 }

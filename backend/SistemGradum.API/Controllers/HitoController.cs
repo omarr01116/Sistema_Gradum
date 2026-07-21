@@ -158,8 +158,11 @@ public class HitoController : ControllerBase
             return null;
 
         var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
-        return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
-            ? asesorId
-            : null;
+        if (asesorIdClaim is null || !int.TryParse(asesorIdClaim, out var asesorId))
+        {
+            throw new UnauthorizedAccessException("El claim AsesorId es inválido o no existe en la sesión actual.");
+        }
+
+        return asesorId;
     }
 }

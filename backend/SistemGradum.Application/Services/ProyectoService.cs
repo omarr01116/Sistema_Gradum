@@ -29,14 +29,29 @@ public class ProyectoService : IProyectoService
 
     public async Task<List<ProyectoResponseDto>> GetAllAsync(int? asesorIdFiltro)
     {
-        var proyectos = await this.proyectoRepository.GetAllAsync();
-
-        if (asesorIdFiltro.HasValue)
-            proyectos = proyectos.Where(p => p.AsesorId == asesorIdFiltro.Value).ToList();
+        var proyectosConAvance = await this.proyectoRepository.GetAllWithProgressAsync(asesorIdFiltro);
 
         var resultado = new List<ProyectoResponseDto>();
-        foreach (var proyecto in proyectos)
-            resultado.Add(await this.MapToResponseAsync(proyecto));
+        foreach (var item in proyectosConAvance)
+        {
+            resultado.Add(new ProyectoResponseDto
+            {
+                Id = item.Proyecto.Id,
+                CodigoProyecto = item.Proyecto.CodigoProyecto,
+                ClienteId = item.Proyecto.ClienteId,
+                Universidad = item.Proyecto.Universidad,
+                Carrera = item.Proyecto.Carrera,
+                Programa = item.Proyecto.Programa,
+                TipoProyecto = item.Proyecto.TipoProyecto,
+                Tema = item.Proyecto.Tema,
+                AsesorId = item.Proyecto.AsesorId,
+                FechaInicio = item.Proyecto.FechaInicio,
+                FechaEntregaComprometida = item.Proyecto.FechaEntregaComprometida,
+                EstadoProyecto = item.Proyecto.EstadoProyecto,
+                FechaUltimoCambio = item.Proyecto.FechaUltimoCambio,
+                PorcentajeAvance = item.PorcentajeAvance
+            });
+        }
 
         return resultado;
     }

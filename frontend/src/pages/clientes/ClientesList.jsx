@@ -8,6 +8,7 @@ import Modal from "../../components/ui/Modal";
 import FormMessage from "../../components/ui/FormMessage";
 import ClienteForm from "./ClienteForm";
 import { useAuth } from "../../context/AuthContext";
+import { getErrorMessage } from "../../utils/errors";
 import {
   getClientes,
   desactivarCliente,
@@ -92,7 +93,7 @@ export default function ClientesList() {
 
       await cargarClientes();
     } catch (err) {
-      setError(err.message);
+      setError(getErrorMessage(err, "No se pudo cambiar el estado del cliente."));
     }
   }
 

@@ -9,6 +9,8 @@ using System.Text;
 using SistemGradum.Infrastructure.Repositories;
 using SistemGradum.Infrastructure.Storage;
 using SistemGradum.Domain.Entities;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -101,7 +103,6 @@ builder.Services.AddScoped<IHitoService, HitoService>();
 builder.Services.AddScoped<IDocumentoRepository, DocumentoRepository>();
 builder.Services.AddScoped<IDocumentoService, DocumentoService>();
 builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoArchivos>();   // ← antes: solo AlmacenamientoArchivos
-builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IObservacionRepository, ObservacionRepository>();
 builder.Services.AddScoped<IObservacionService, ObservacionService>();
@@ -117,6 +118,34 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler(exceptionHandlerApp =>
+{
+    exceptionHandlerApp.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+        var exception = exceptionHandlerPathFeature?.Error;
+        var env = context.RequestServices.GetRequiredService<IWebHostEnvironment>();
+
+        var responseObj = new
+        {
+            mensaje = exception is UnauthorizedAccessException ? exception.Message : "Ocurrió un error interno en el servidor.",
+            detalle = env.IsDevelopment() ? exception?.Message : null,
+            trace = env.IsDevelopment() ? exception?.StackTrace : null
+        };
+
+        if (exception is UnauthorizedAccessException)
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        }
+
+        var json = JsonSerializer.Serialize(responseObj);
+        await context.Response.WriteAsync(json);
+    });
+});
 
 app.UseHttpsRedirection();
 

@@ -43,3 +43,18 @@ C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\S
 C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\refint\SistemGradum.Application.dll
 C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.pdb
 C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\ref\SistemGradum.Application.dll
+D:\SistemGradum_final\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Application.deps.json
+D:\SistemGradum_final\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Application.dll
+D:\SistemGradum_final\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Application.pdb
+D:\SistemGradum_final\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Domain.dll
+D:\SistemGradum_final\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Domain.pdb
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.csproj.AssemblyReference.cache
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.AssemblyInfoInputs.cache
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.AssemblyInfo.cs
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.csproj.CoreCompileInputs.cache
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGr.A3ADB3B2.Up2Date
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.dll
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\refint\SistemGradum.Application.dll
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.pdb
+D:\SistemGradum_final\backend\SistemGradum.Application\obj\Debug\net8.0\ref\SistemGradum.Application.dll

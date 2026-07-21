@@ -75,6 +75,14 @@ public class AlertaRepository : IAlertaRepository
             .ToListAsync();
     }
 
+    public async Task<List<Alerta>> GetAlertasNoLeidasByUsuarioAsync(int usuarioId)
+    {
+        return await this.context.Alertas
+            .AsNoTracking()
+            .Where(a => a.UsuarioDestinoId == usuarioId && !a.Leida)
+            .ToListAsync();
+    }
+
     public async Task<Alerta?> GetByIdAsync(int id)
     {
         return await this.context.Alertas.FirstOrDefaultAsync(a => a.Id == id);

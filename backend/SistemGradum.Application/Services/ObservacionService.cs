@@ -8,12 +8,16 @@ public class ObservacionService : IObservacionService
 {
     private readonly IObservacionRepository observacionRepository;
     private readonly IProyectoRepository proyectoRepository;
+    private readonly IUsuarioRepository usuarioRepository;
 
     public ObservacionService(
-        IObservacionRepository observacionRepository, IProyectoRepository proyectoRepository)
+        IObservacionRepository observacionRepository,
+        IProyectoRepository proyectoRepository,
+        IUsuarioRepository usuarioRepository)
     {
         this.observacionRepository = observacionRepository;
         this.proyectoRepository = proyectoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     public async Task<List<ObservacionResponseDto>?> GetByProyectoIdAsync(int proyectoId, int? asesorIdFiltro)
@@ -27,7 +31,27 @@ public class ObservacionService : IObservacionService
             return null;
 
         var observaciones = await this.observacionRepository.GetByProyectoIdAsync(proyectoId);
-        return observaciones.Select(MapToResponse).ToList();
+        
+        var usuarioIds = observaciones.Select(o => o.UsuarioId).Distinct().ToList();
+        var usuarios = new Dictionary<int, string>();
+        foreach (var uid in usuarioIds)
+        {
+            var u = await this.usuarioRepository.GetByIdAsync(uid);
+            if (u is not null)
+            {
+                usuarios[uid] = u.NombreUsuario;
+            }
+        }
+
+        var result = new List<ObservacionResponseDto>();
+        foreach (var o in observaciones)
+        {
+            var dto = MapToResponse(o);
+            dto.NombreUsuario = usuarios.TryGetValue(o.UsuarioId, out var name) ? name : $"Usuario #{o.UsuarioId}";
+            result.Add(dto);
+        }
+
+        return result;
     }
 
     public async Task<(ObservacionResponseDto? Observacion, string? Error)> CrearAsync(
@@ -55,7 +79,13 @@ public class ObservacionService : IObservacionService
         await this.observacionRepository.AddAsync(observacion);
         await this.observacionRepository.SaveChangesAsync();
 
-        return (MapToResponse(observacion), null);
+        var user = await this.usuarioRepository.GetByIdAsync(usuarioId);
+        var nombreUsuario = user?.NombreUsuario ?? $"Usuario #{usuarioId}";
+
+        var resDto = MapToResponse(observacion);
+        resDto.NombreUsuario = nombreUsuario;
+
+        return (resDto, null);
     }
 
     private static ObservacionResponseDto MapToResponse(Observacion o) => new()

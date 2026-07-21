@@ -10,6 +10,7 @@ export const ROLE_LABELS = {
 export const MENU_POR_ROL = {
   Administrador: [
     { label: "Dashboard", icon: "LayoutDashboard", path: "/" },
+    { label: "Clientes", icon: "Users", path: "/clientes" },
     { label: "Proyectos", icon: "FolderKanban", path: "/proyectos" },
     { label: "Asesores", icon: "GraduationCap", path: "/asesores" },
     { label: "Usuarios", icon: "Users", path: "/usuarios" },

@@ -3148,19 +3148,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JHOSIMAR\\.nuget\\packages\\": {}
+    "C:\\Users\\oore6\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.API\\SistemGradum.API.csproj",
+      "projectUniqueName": "D:\\SistemGradum_final\\backend\\SistemGradum.API\\SistemGradum.API.csproj",
       "projectName": "SistemGradum.API",
-      "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.API\\SistemGradum.API.csproj",
-      "packagesPath": "C:\\Users\\JHOSIMAR\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.API\\obj\\",
+      "projectPath": "D:\\SistemGradum_final\\backend\\SistemGradum.API\\SistemGradum.API.csproj",
+      "packagesPath": "C:\\Users\\oore6\\.nuget\\packages\\",
+      "outputPath": "D:\\SistemGradum_final\\backend\\SistemGradum.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\JHOSIMAR\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\oore6\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3172,11 +3172,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
-              "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj"
+            "D:\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
+              "projectPath": "D:\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj"
             },
-            "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj"
+            "D:\\SistemGradum_final\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj": {
+              "projectPath": "D:\\SistemGradum_final\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj"
             }
           }
         }
@@ -3190,8 +3190,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "10.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -3235,7 +3234,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

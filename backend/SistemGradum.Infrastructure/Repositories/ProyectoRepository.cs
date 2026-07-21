@@ -21,6 +21,27 @@ public class ProyectoRepository : IProyectoRepository
             .ToListAsync();
     }
 
+    public async Task<List<(Proyecto Proyecto, decimal PorcentajeAvance)>> GetAllWithProgressAsync(int? asesorIdFiltro = null)
+    {
+        var query = this.context.Proyectos.AsNoTracking().AsQueryable();
+        if (asesorIdFiltro.HasValue)
+        {
+            query = query.Where(p => p.AsesorId == asesorIdFiltro.Value);
+        }
+
+        var result = await query
+            .Select(p => new
+            {
+                Proyecto = p,
+                PorcentajeAvance = p.Hitos
+                    .Where(h => h.EstadoHito == "Aprobado")
+                    .Sum(h => (decimal?)h.PesoPorcentual) ?? 0m
+            })
+            .ToListAsync();
+
+        return result.Select(r => (r.Proyecto, r.PorcentajeAvance)).ToList();
+    }
+
     public async Task<Proyecto?> GetByIdAsync(int id)
     {
         return await this.context.Proyectos

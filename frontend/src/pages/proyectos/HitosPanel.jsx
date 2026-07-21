@@ -6,6 +6,7 @@ import Badge from "../../components/ui/Badge";
 import { getHitosByProyecto, crearHitosLote, completarHito, aprobarHito, rechazarHito } from "../../services/hitoService";
 import { useAuth } from "../../context/AuthContext";
 import { getErrorMessage } from "../../utils/errors";
+import Modal from "../../components/ui/Modal";
 
 export default function HitosPanel({ proyecto }) {
   const { rol } = useAuth();
@@ -17,6 +18,10 @@ export default function HitosPanel({ proyecto }) {
   // Para creación masiva
   const [modoEdicion, setModoEdicion] = useState(false);
   const [nuevosHitos, setNuevosHitos] = useState([]);
+
+  // Evidencia para completado de hito
+  const [hitoCompletando, setHitoCompletando] = useState(null);
+  const [archivoEvidencia, setArchivoEvidencia] = useState(null);
 
   const cargarHitos = useCallback(async () => {
     try {
@@ -79,6 +84,15 @@ export default function HitosPanel({ proyecto }) {
     } catch (err) {
       setError(getErrorMessage(err, "Error al guardar hitos."));
     }
+  };
+
+  const handleConfirmarCompletar = async (e) => {
+    e.preventDefault();
+    if (!hitoCompletando) return;
+    const hitoId = hitoCompletando.id;
+    setHitoCompletando(null);
+    await handleAccion(hitoId, "completar", archivoEvidencia);
+    setArchivoEvidencia(null);
   };
 
   const handleAccion = async (hitoId, accion, payload = null) => {
@@ -164,7 +178,7 @@ export default function HitosPanel({ proyecto }) {
                   <td className="py-3 text-right">
                     <div className="flex justify-end gap-2">
                       {rol === "Asesor" && (h.estadoHito === "Pendiente" || h.estadoHito === "EnProgreso" || h.estadoHito === "Correcciones") && (
-                        <Button variant="secondary" onClick={() => handleAccion(h.id, "completar")}>Completar</Button>
+                        <Button variant="secondary" onClick={() => setHitoCompletando(h)}>Completar</Button>
                       )}
                       {(rol === "Coordinador" || rol === "Administrador") && h.estadoHito === "PendienteAprobacion" && (
                         <>
@@ -195,6 +209,48 @@ export default function HitosPanel({ proyecto }) {
             </div>
           )}
         </div>
+      )}
+
+      {hitoCompletando && (
+        <Modal
+          isOpen={!!hitoCompletando}
+          onClose={() => {
+            setHitoCompletando(null);
+            setArchivoEvidencia(null);
+          }}
+          title={`Subir evidencia para: ${hitoCompletando.nombreHito}`}
+        >
+          <form onSubmit={handleConfirmarCompletar} className="space-y-4">
+            <div className="flex flex-col gap-1">
+              <label className="text-label-sm text-on-surface-variant px-1 font-semibold">
+                Archivo de Evidencia (Opcional)
+              </label>
+              <input 
+                type="file" 
+                accept=".pdf,.doc,.docx,.png,.jpg,.zip"
+                onChange={(e) => setArchivoEvidencia(e.target.files[0])} 
+                className="text-body-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-body-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:bg-primary-container/80 cursor-pointer"
+              />
+              <p className="text-[11px] text-gray-400 px-1 mt-1">
+                Formatos permitidos: .pdf, .doc, .docx, .png, .jpg, .zip
+              </p>
+            </div>
+            <div className="flex justify-end gap-3 pt-2">
+              <Button 
+                variant="secondary" 
+                onClick={() => {
+                  setHitoCompletando(null);
+                  setArchivoEvidencia(null);
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit">
+                Completar Hito
+              </Button>
+            </div>
+          </form>
+        </Modal>
       )}
     </div>
   );

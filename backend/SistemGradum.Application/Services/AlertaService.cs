@@ -19,11 +19,14 @@ public class AlertaService : IAlertaService
         // Solo Coordinador, Administrador y Asesor reciben alertas de proyectos/hitos.
         // RN-08 ya limita qué proyectos ve cada uno vía asesorIdFiltro.
 
+        var alertasNoLeidas = await this.alertaRepository.GetAlertasNoLeidasByUsuarioAsync(usuarioId);
+        var unreadSet = new HashSet<(string Tipo, int? ProyectoId, int? HitoId)>(
+            alertasNoLeidas.Select(a => (a.Tipo, a.ProyectoId, a.HitoId)));
+
         var hitosProximos = await this.alertaRepository.GetHitosProximosAVencerAsync(asesorIdFiltro);
         foreach (var hito in hitosProximos)
         {
-            var yaExiste = await this.alertaRepository.ExisteAlertaNoLeidaAsync(
-                "HitoProximoAVencer", hito.ProyectoId, hito.Id, usuarioId);
+            var yaExiste = unreadSet.Contains(("HitoProximoAVencer", hito.ProyectoId, hito.Id));
 
             if (!yaExiste)
             {
@@ -43,8 +46,7 @@ public class AlertaService : IAlertaService
         var proyectosEnCorrecciones = await this.alertaRepository.GetProyectosEnCorreccionesAsync(asesorIdFiltro);
         foreach (var proyecto in proyectosEnCorrecciones)
         {
-            var yaExiste = await this.alertaRepository.ExisteAlertaNoLeidaAsync(
-                "ProyectoEnCorrecciones", proyecto.Id, null, usuarioId);
+            var yaExiste = unreadSet.Contains(("ProyectoEnCorrecciones", proyecto.Id, null));
 
             if (!yaExiste)
             {
@@ -63,8 +65,7 @@ public class AlertaService : IAlertaService
         var proyectosSinActividad = await this.alertaRepository.GetProyectosSinObservacionesRecientesAsync(asesorIdFiltro);
         foreach (var proyecto in proyectosSinActividad)
         {
-            var yaExiste = await this.alertaRepository.ExisteAlertaNoLeidaAsync(
-                "SinActividadReciente", proyecto.Id, null, usuarioId);
+            var yaExiste = unreadSet.Contains(("SinActividadReciente", proyecto.Id, null));
 
             if (!yaExiste)
             {

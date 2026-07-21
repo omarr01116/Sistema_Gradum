@@ -55,7 +55,7 @@ export default function BitacoraPanel({ proyecto, puedeEscribir }) {
             <div key={obs.id} className="border-l-2 border-primary/30 pl-3">
               <p className="text-body-sm text-on-surface">{obs.detalle}</p>
               <p className="text-label-caps text-on-surface-variant mt-1">
-                Usuario #{obs.usuarioId} · {new Date(obs.fechaHora).toLocaleString("es-PE")}
+                {obs.nombreUsuario || `Usuario #${obs.usuarioId}`} · {new Date(obs.fechaHora).toLocaleString("es-PE")}
               </p>
             </div>
           ))}

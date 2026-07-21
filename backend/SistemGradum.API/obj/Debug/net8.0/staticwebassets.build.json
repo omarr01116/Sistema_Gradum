@@ -1,1 +1,11 @@
-{"Version":1,"Hash":"bfr0YtpRu3/xlqhC/nCX2ydcbV0hAF8M6vzXn11uviA=","Source":"SistemGradum.API","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
+{
+  "Version": 1,
+  "Hash": "rdz+m/i+J8y3+rDHIhFmbfPhf16qWSRiW5GIP/dCD3M=",
+  "Source": "SistemGradum.API",
+  "BasePath": "_content/SistemGradum.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

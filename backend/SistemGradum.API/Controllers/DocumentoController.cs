@@ -71,8 +71,8 @@ public class DocumentoController : ControllerBase
         if (!success)
             return NotFound(new { mensaje = error });
 
-        var bytes = await System.IO.File.ReadAllBytesAsync(rutaCompleta!);
-        return File(bytes, "application/octet-stream", nombreDescarga);
+        var stream = new System.IO.FileStream(rutaCompleta!, System.IO.FileMode.Open, System.IO.FileAccess.Read);
+        return File(stream, "application/octet-stream", nombreDescarga);
     }
 
     // RN-08: mismo patrón que ProyectoController y HitoController.
@@ -82,8 +82,11 @@ public class DocumentoController : ControllerBase
             return null;
 
         var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
-        return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
-            ? asesorId
-            : null;
+        if (asesorIdClaim is null || !int.TryParse(asesorIdClaim, out var asesorId))
+        {
+            throw new UnauthorizedAccessException("El claim AsesorId es inválido o no existe en la sesión actual.");
+        }
+
+        return asesorId;
     }
 }

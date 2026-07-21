@@ -9,6 +9,7 @@ public interface IAlertaRepository
     Task<List<Proyecto>> GetProyectosSinObservacionesRecientesAsync(int? asesorIdFiltro);
     Task<bool> ExisteAlertaNoLeidaAsync(string tipo, int? proyectoId, int? hitoId, int usuarioDestinoId);
     Task<List<Alerta>> GetByUsuarioDestinoAsync(int usuarioId);
+    Task<List<Alerta>> GetAlertasNoLeidasByUsuarioAsync(int usuarioId);
     Task<Alerta?> GetByIdAsync(int id);
     Task AddAsync(Alerta alerta);
     Task UpdateAsync(Alerta alerta);

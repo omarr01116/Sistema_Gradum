@@ -39,6 +39,16 @@ public class UsuarioRepository : IUsuarioRepository
             .FirstOrDefaultAsync(u => u.Id == id);
     }
 
+    public async Task<bool> ExisteAsesorVinculadoAsync(int asesorId, int? usuarioIdExcluido = null)
+    {
+        var query = this.context.Usuarios.Where(u => u.AsesorId == asesorId);
+        if (usuarioIdExcluido.HasValue)
+        {
+            query = query.Where(u => u.Id != usuarioIdExcluido.Value);
+        }
+        return await query.AnyAsync();
+    }
+
     public async Task AddAsync(Usuario usuario)
     {
         await this.context.Usuarios.AddAsync(usuario);
