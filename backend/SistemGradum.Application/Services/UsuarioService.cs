@@ -54,6 +54,11 @@ public class UsuarioService : IUsuarioService
             var asesor = await this.asesorRepository.GetByIdAsync(dto.AsesorId.Value);
             if (asesor is null || !asesor.Activo)
                 return (null, "El asesor indicado no existe o está inactivo.");
+
+            // Validar que el asesor no tenga ya un usuario vinculado para evitar Error 500
+            var usuarios = await this.usuarioRepository.GetAllAsync();
+            if (usuarios.Any(u => u.AsesorId == dto.AsesorId.Value))
+                return (null, "Este asesor ya tiene una cuenta de usuario vinculada.");
         }
         else if (dto.AsesorId.HasValue)
         {
@@ -92,6 +97,11 @@ public class UsuarioService : IUsuarioService
             var asesor = await this.asesorRepository.GetByIdAsync(dto.AsesorId.Value);
             if (asesor is null || !asesor.Activo)
                 return (false, "El asesor indicado no existe o está inactivo.");
+
+            // Validar que el asesor no tenga ya un usuario vinculado (que no sea el mismo usuario)
+            var usuarios = await this.usuarioRepository.GetAllAsync();
+            if (usuarios.Any(u => u.AsesorId == dto.AsesorId.Value && u.Id != id))
+                return (false, "Este asesor ya tiene otra cuenta de usuario vinculada.");
         }
         else if (dto.AsesorId.HasValue)
         {

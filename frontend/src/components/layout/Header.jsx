@@ -1,38 +1,35 @@
 import { useAuth } from "../../context/AuthContext";
 import { ROLE_LABELS } from "../../constants/roles";
+import { Bell, ChevronDown } from "lucide-react";
 
 export default function Header() {
   const { nombreUsuario, rol } = useAuth();
-  const iniciales = nombreUsuario ? nombreUsuario.slice(0, 2).toUpperCase() : "";
+  const iniciales = nombreUsuario ? nombreUsuario.slice(0, 2).toUpperCase() : "U";
 
   return (
-    <header className="h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-6 sticky top-0 z-10">
-      <div>
-        <h2 className="font-semibold text-headline-md text-on-background leading-none">
-          Panel de Control Académico
-        </h2>
-        <p className="text-body-sm text-secondary mt-1">
-          Sistema de gestión GRADUM
-        </p>
+    <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-10 w-full">
+      <div className="flex-1">
+        {/* Placeholder for future left-side items if needed */}
       </div>
-
-      <div className="flex items-center gap-4">
-        <button className="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
-          <span className="material-symbols-outlined">notifications</span>
+      <div className="flex items-center gap-6">
+        <button className="relative p-2 text-gray-600 hover:bg-slate-50 rounded-full transition-colors">
+          <Bell size={22} />
+          <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#7A0B2E] rounded-full border-2 border-white"></span>
         </button>
-        <div className="h-8 w-px bg-outline-variant mx-2" />
-        <div className="flex items-center gap-3">
+        <div className="h-8 w-px bg-gray-200" />
+        <div className="flex items-center gap-3 cursor-pointer hover:opacity-80">
           <div className="text-right hidden md:block">
-            <div className="font-semibold text-body-md text-on-surface leading-none">
+            <p className="text-sm font-bold text-gray-800 leading-tight">
               {nombreUsuario}
-            </div>
-            <div className="text-label-caps text-primary bg-primary-container/10 px-2 py-0.5 rounded mt-1 inline-block">
+            </p>
+            <p className="text-xs text-gray-500">
               {ROLE_LABELS[rol] ?? rol}
-            </div>
+            </p>
           </div>
-          <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-semibold text-body-sm">
-            {iniciales}
+          <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 border border-gray-200 flex items-center justify-center font-bold text-gray-500">
+             {iniciales}
           </div>
+          <ChevronDown size={16} className="text-gray-400" />
         </div>
       </div>
     </header>

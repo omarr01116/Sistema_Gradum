@@ -1,10 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import MainLayout from "../../layouts/MainLayout";
-import PageContainer from "../../components/layout/PageContainer";
 import Modal from "../../components/ui/Modal";
-import Button from "../../components/ui/Button";
-import FormMessage from "../../components/ui/FormMessage";
-import ProyectoCard from "./ProyectoCard";
 import ProyectoForm from "./ProyectoForm";
 import BitacoraPanel from "./BitacoraPanel";
 import HitosPanel from "./HitosPanel";
@@ -12,13 +8,16 @@ import DocumentosPanel from "./DocumentosPanel";
 import { getProyectos, cambiarEstadoProyecto } from "../../services/proyectoService";
 import { getClientes } from "../../services/clienteService";
 import { getAsesores } from "../../services/asesorService";
-import { ESTADOS_PROYECTO, ORDEN_COLUMNAS } from "../../constants/estadosProyecto";
+import { ESTADOS_PROYECTO } from "../../constants/estadosProyecto";
 import { useAuth } from "../../context/AuthContext";
 import { getErrorMessage } from "../../utils/errors";
+import Card from "../../components/ui/Card";
+import Badge from "../../components/ui/Badge";
+import { Plus, FileText, Calendar, BookOpen, Edit, ArrowRight } from "lucide-react";
 
 export default function ProyectosBoard() {
   const { rol } = useAuth();
-  const puedeGestionar = rol === "Coordinador";
+  const puedeGestionar = rol === "Coordinador" || rol === "Administrador";
 
   const [proyectos, setProyectos] = useState([]);
   const [clientes, setClientes] = useState([]);
@@ -35,12 +34,9 @@ export default function ProyectosBoard() {
   const cargarDatos = useCallback(async () => {
     try {
       setLoading(true);
-      
-      // 1. Cargamos los proyectos independientemente
       const proyectosData = await getProyectos();
       setProyectos(proyectosData);
 
-      // 2. Intentamos cargar los catálogos en un bloque separado
       try {
         const [clientesData, asesoresData] = await Promise.all([
           getClientes(),
@@ -49,9 +45,8 @@ export default function ProyectosBoard() {
         setClientes(clientesData);
         setAsesores(asesoresData);
       } catch (catalogError) {
-        console.warn("No se pudieron cargar los catálogos (clientes/asesores).");
+        console.warn("No se pudieron cargar los catálogos.");
       }
-      
     } catch {
       setError("No se pudieron cargar los proyectos.");
     } finally {
@@ -103,56 +98,132 @@ export default function ProyectosBoard() {
 
   return (
     <MainLayout>
-      <PageContainer title="Proyectos" subtitle="Tablero de proyectos agrupados por estado.">
-        <div className="flex justify-between items-center mb-4 gap-4">
-          <div className="flex-1"><FormMessage type="error" message={error} /></div>
-          <div className="flex gap-2">
-            <Button variant="secondary" onClick={cargarDatos}>
-              <span className="material-symbols-outlined text-[18px]">refresh</span>
-            </Button>
-            {puedeGestionar && <Button onClick={abrirCrear}>Nuevo proyecto</Button>}
-          </div>
+      <div className="flex justify-between items-end mb-8">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">Projects Management</h2>
+          <p className="text-gray-500 text-sm">Gestiona y supervisa todos los proyectos académicos de GRADUM.</p>
         </div>
+        <div className="flex gap-3">
+          <button onClick={cargarDatos} className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-slate-50 font-medium text-sm transition-colors">
+            Actualizar
+          </button>
+          {puedeGestionar && (
+            <button onClick={abrirCrear} className="flex items-center gap-2 bg-[#7A0B2E] text-white px-4 py-2 rounded-lg hover:bg-[#610824] font-medium text-sm transition-colors">
+              <Plus size={16} /> Nuevo Proyecto
+            </button>
+          )}
+        </div>
+      </div>
 
-        {loading ? (
-          <p className="text-body-sm text-on-surface-variant">Cargando proyectos...</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4">
-            {ORDEN_COLUMNAS.map((estado) => {
-              const proyectosColumna = proyectos.filter((p) => p.estadoProyecto === estado);
-              return (
-                <div key={estado} className="bg-surface-container rounded-lg p-3">
-                  <div className="flex justify-between items-center mb-3 px-1">
-                    <h3 className="font-semibold text-body-sm text-on-surface">
-                      {ESTADOS_PROYECTO[estado].label}
-                    </h3>
-                    <span className="text-label-caps text-on-surface-variant">{proyectosColumna.length}</span>
-                  </div>
-                  <div className="space-y-3">
-                    {proyectosColumna.map((proyecto) => (
-                      <ProyectoCard
-                        key={proyecto.id}
-                        proyecto={proyecto}
-                        clienteNombre={nombreCliente(proyecto.clienteId)}
-                        asesorNombre={nombreAsesor(proyecto.asesorId)}
-                        puedeTransicionar={puedeGestionar}
-                        onCambiarEstado={handleCambiarEstado}
-                        onVerBitacora={setProyectoBitacora}
-                        onVerHitos={setProyectoHitos}
-                        onVerDocumentos={setProyectoDocumentos}
-                        onEditar={abrirEditar}
-                      />
-                    ))}
-                    {proyectosColumna.length === 0 && (
-                      <p className="text-body-sm text-on-surface-variant italic px-1">Sin proyectos</p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </PageContainer>
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+          {error}
+        </div>
+      )}
+
+      <Card className="overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-slate-50 border-b border-gray-200">
+              <tr>
+                <th className="px-6 py-4 font-semibold text-gray-600">CODE & THEME</th>
+                <th className="px-6 py-4 font-semibold text-gray-600">CLIENT / ASSESSOR</th>
+                <th className="px-6 py-4 font-semibold text-gray-600">STATUS</th>
+                <th className="px-6 py-4 font-semibold text-gray-600">PROGRESS</th>
+                <th className="px-6 py-4 font-semibold text-gray-600">DEADLINE</th>
+                <th className="px-6 py-4 font-semibold text-gray-600 text-center">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {loading ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-8 text-gray-500">Cargando proyectos...</td>
+                </tr>
+              ) : proyectos.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-8 text-gray-500 italic">No se encontraron proyectos.</td>
+                </tr>
+              ) : (
+                proyectos.map((proyecto) => {
+                  const config = ESTADOS_PROYECTO[proyecto.estadoProyecto];
+                  const transiciones = config?.transicionesValidas ?? [];
+                  
+                  return (
+                    <tr key={proyecto.id} className="hover:bg-slate-50/50 transition-colors group">
+                      <td className="px-6 py-4">
+                        <p className="font-bold text-gray-800">{proyecto.codigoProyecto}</p>
+                        <p className="text-gray-500 text-xs mt-1 w-64 truncate">{proyecto.tema}</p>
+                      </td>
+                      <td className="px-6 py-4">
+                        <p className="font-medium text-gray-700">{nombreCliente(proyecto.clienteId)}</p>
+                        <p className="text-xs text-gray-500 mt-1">{nombreAsesor(proyecto.asesorId) || "Sin asesor"}</p>
+                      </td>
+                      <td className="px-6 py-4">
+                        <Badge label={config?.label ?? proyecto.estadoProyecto} variant={config?.badgeVariant ?? "neutral"} />
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-full max-w-[100px] bg-gray-200 rounded-full h-2 overflow-hidden">
+                            <div 
+                              className="bg-[#7A0B2E] h-2 rounded-full transition-all duration-500" 
+                              style={{ width: `${proyecto.porcentajeAvance || 0}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-xs font-bold text-gray-600">{proyecto.porcentajeAvance || 0}%</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <p className="font-medium text-gray-700">
+                          {proyecto.fechaEntregaComprometida ? new Date(proyecto.fechaEntregaComprometida).toLocaleDateString() : "—"}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button onClick={() => setProyectoHitos(proyecto)} title="Ver Hitos" className="p-2 text-gray-400 hover:text-[#7A0B2E] hover:bg-[#7A0B2E]/10 rounded-lg transition-colors">
+                            <Calendar size={18} />
+                          </button>
+                          <button onClick={() => setProyectoDocumentos(proyecto)} title="Documentos" className="p-2 text-gray-400 hover:text-[#7A0B2E] hover:bg-[#7A0B2E]/10 rounded-lg transition-colors">
+                            <FileText size={18} />
+                          </button>
+                          <button onClick={() => setProyectoBitacora(proyecto)} title="Bitácora" className="p-2 text-gray-400 hover:text-[#7A0B2E] hover:bg-[#7A0B2E]/10 rounded-lg transition-colors">
+                            <BookOpen size={18} />
+                          </button>
+                          {puedeGestionar && (
+                            <>
+                              <button onClick={() => abrirEditar(proyecto)} title="Editar Proyecto" className="p-2 text-gray-400 hover:text-[#7A0B2E] hover:bg-[#7A0B2E]/10 rounded-lg transition-colors">
+                                <Edit size={18} />
+                              </button>
+                              
+                              {transiciones.length > 0 && (
+                                <div className="relative group/menu">
+                                  <button className="p-2 text-gray-400 hover:text-[#7A0B2E] hover:bg-[#7A0B2E]/10 rounded-lg transition-colors flex items-center">
+                                    <ArrowRight size={18} />
+                                  </button>
+                                  <div className="absolute right-0 top-full mt-1 hidden group-hover/menu:block bg-white border border-gray-200 shadow-lg rounded-lg z-10 w-48 py-1">
+                                    {transiciones.map(estado => (
+                                      <button 
+                                        key={estado}
+                                        onClick={() => handleCambiarEstado(proyecto, estado)}
+                                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-slate-50"
+                                      >
+                                        → {ESTADOS_PROYECTO[estado].label}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
 
       <Modal
         isOpen={modalFormOpen}

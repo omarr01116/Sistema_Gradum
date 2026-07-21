@@ -17,9 +17,18 @@ public class DocumentoController : ControllerBase
     {
         this.documentoService = documentoService;
     }
+
+    // GET /api/proyecto/{proyectoId}/documentos
+    [HttpGet("proyecto/{proyectoId:int}/documentos")]
+    public async Task<IActionResult> GetByProyecto(int proyectoId)
+    {
+        var documentos = await this.documentoService.GetByProyectoIdAsync(proyectoId, this.ObtenerAsesorIdFiltro());
+        return documentos is null ? NotFound() : Ok(documentos);
+    }
+
     // POST /api/proyecto/{proyectoId}/documentos — RF-013
     [HttpPost("proyecto/{proyectoId:int}/documentos")]
-    [Authorize(Roles = "Asesor,Coordinador")]
+    [Authorize(Roles = "Administrador,Asesor,Coordinador")]
     [RequestSizeLimit(50_000_000)]
     public async Task<IActionResult> Subir(
         int proyectoId, [FromForm] SubirDocumentoDto dto)

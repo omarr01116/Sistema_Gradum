@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {}
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
+        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
         "projectName": "SistemGradum.Application",
-        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
+        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
         "packagesPath": "C:\\Users\\JHOSIMAR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Application\\obj\\",
+        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JHOSIMAR\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
-                "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj"
+              "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+                "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj"
               }
             }
           }
@@ -76,14 +76,14 @@
         }
       }
     },
-    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "projectName": "SistemGradum.Domain",
-        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "packagesPath": "C:\\Users\\JHOSIMAR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\obj\\",
+        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JHOSIMAR\\AppData\\Roaming\\NuGet\\NuGet.Config"

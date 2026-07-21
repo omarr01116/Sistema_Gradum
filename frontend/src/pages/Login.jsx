@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/ui/InputField";
-import Button from "../components/ui/Button";
-import FormMessage from "../components/ui/FormMessage";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
@@ -34,80 +31,75 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-background">
-      {/* Panel institucional (solo desktop) */}
-      <div className="hidden lg:flex lg:w-[60%] relative bg-primary-container overflow-hidden">
-        <div className="relative z-10 flex flex-col justify-between p-section-gap w-full h-full text-on-primary">
-          <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-4xl">school</span>
-            <h1 className="font-bold text-display-lg tracking-tight">GRADUM</h1>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 font-sans">
+      <div className="bg-white border border-gray-200 shadow-xl rounded-2xl overflow-hidden flex w-full max-w-4xl min-h-[500px]">
+        {/* Left Side - Brand */}
+        <div className="hidden md:flex w-1/2 bg-slate-50 flex-col items-center justify-center p-12 border-r border-gray-100">
+          <div className="w-36 h-36 bg-white rounded-full shadow-md flex items-center justify-center mb-6 overflow-hidden p-2">
+            <img src="/logo.jpg" alt="Gradum Logo" className="w-full h-full object-contain rounded-full" />
           </div>
-          <div className="max-w-xl">
-            <h2 className="font-bold text-display-lg mb-6 leading-tight">
-              Impulsando la excelencia en investigación académica.
-            </h2>
-            <p className="text-body-md text-primary-fixed-dim">
-              Plataforma integral para gestionar proyectos de tesis, hitos,
-              documentos y la relación entre tesistas y asesores.
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <span className="material-symbols-outlined text-primary-fixed-dim">verified</span>
-            <span className="material-symbols-outlined text-primary-fixed-dim">workspace_premium</span>
-            <span className="material-symbols-outlined text-primary-fixed-dim">assured_workload</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Formulario */}
-      <div className="w-full lg:w-[40%] bg-surface flex flex-col justify-center px-8 sm:px-12 lg:px-16 xl:px-24 overflow-y-auto">
-        <div className="lg:hidden flex items-center gap-3 mb-12 justify-center">
-          <span className="material-symbols-outlined text-primary text-3xl">school</span>
-          <h1 className="font-bold text-headline-md text-primary">GRADUM</h1>
+          <h1 className="text-3xl font-bold text-[#7A0B2E] tracking-tight">GRADUM</h1>
+          <p className="text-xs text-gray-500 tracking-[0.2em] mt-2 text-center uppercase">Tesis & Investigación</p>
         </div>
 
-        <div className="w-full max-w-md mx-auto">
-          <div className="mb-10 text-center lg:text-left">
-            <h2 className="font-semibold text-headline-md text-on-surface mb-2">
-              Iniciar Sesión
-            </h2>
-            <p className="text-body-sm text-on-surface-variant">
-              Accede a tu panel de gestión académica.
-            </p>
+        {/* Right Side - Form */}
+        <div className="w-full md:w-1/2 p-12 flex flex-col justify-center bg-white">
+          <div className="md:hidden flex flex-col items-center mb-8">
+            <h1 className="text-3xl font-bold text-[#7A0B2E] tracking-tight">GRADUM</h1>
+            <p className="text-xs text-gray-500 tracking-[0.2em] mt-1 text-center uppercase">Tesis & Investigación</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <InputField
-              label="Usuario"
-              name="nombreUsuario"
-              icon="person"
-              value={formData.nombreUsuario}
-              onChange={handleChange}
-              placeholder="usuario"
-              required
-            />
-            <InputField
-              label="Contraseña"
-              name="password"
-              type="password"
-              icon="lock"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="••••••••"
-              required
-            />
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">Sign In</h2>
+          <p className="text-gray-500 text-sm mb-8">Accede a tu panel de gestión académica.</p>
+          
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+              <input 
+                type="text" 
+                name="nombreUsuario"
+                value={formData.nombreUsuario}
+                onChange={handleChange}
+                placeholder="usuario"
+                required
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7A0B2E]/20 focus:border-[#7A0B2E]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+              <input 
+                type="password" 
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="••••••••"
+                required
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7A0B2E]/20 focus:border-[#7A0B2E]"
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#7A0B2E] focus:ring-[#7A0B2E]" />
+                <span className="text-sm text-gray-600">Recordarme</span>
+              </label>
+              <a href="#" className="text-sm text-[#7A0B2E] hover:underline font-medium">¿Olvidaste tu contraseña?</a>
+            </div>
 
-            <Button type="submit" disabled={isSubmitting} fullWidth>
+            {message && (
+              <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+                {message}
+              </div>
+            )}
+
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full bg-[#7A0B2E] hover:bg-[#610824] text-white font-medium py-2.5 rounded-lg transition-colors mt-2 disabled:opacity-50"
+            >
               {isSubmitting ? "Ingresando..." : "Iniciar Sesión"}
-              {!isSubmitting && (
-                <span className="material-symbols-outlined text-[18px]">
-                  arrow_forward
-                </span>
-              )}
-            </Button>
+            </button>
           </form>
-
-          <FormMessage type="error" message={message} />
         </div>
       </div>
     </div>

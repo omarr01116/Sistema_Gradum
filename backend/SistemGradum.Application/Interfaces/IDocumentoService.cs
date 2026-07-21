@@ -13,4 +13,6 @@ public interface IDocumentoService
 
     Task<(bool Success, string? Error, string? RutaCompleta, string? NombreDescarga)> ObtenerParaDescargaAsync(
         int documentoId, int numeroVersion, int? asesorIdFiltro);
+        
+    Task<List<DocumentoResponseDto>?> GetByProyectoIdAsync(int proyectoId, int? asesorIdFiltro);
 }

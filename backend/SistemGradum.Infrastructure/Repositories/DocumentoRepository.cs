@@ -14,6 +14,14 @@ public class DocumentoRepository : IDocumentoRepository
         this.context = context;
     }
 
+    public async Task<List<Documento>> GetByProyectoIdAsync(int proyectoId)
+    {
+        return await this.context.Documentos
+            .Include(d => d.Versiones)
+            .Where(d => d.ProyectoId == proyectoId)
+            .ToListAsync();
+    }
+
     public async Task<Documento?> GetByProyectoIdYCategoriaAsync(int proyectoId, string categoria)
     {
         return await this.context.Documentos

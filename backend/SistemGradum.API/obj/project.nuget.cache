@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JrtQCqR1wNo=",
+  "dgSpecHash": "r0M6XoeTLbg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.API\\SistemGradum.API.csproj",
+  "projectFilePath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.API\\SistemGradum.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JHOSIMAR\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\JHOSIMAR\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

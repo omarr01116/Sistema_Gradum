@@ -1,69 +1,92 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { MENU_POR_ROL } from "../../constants/roles";
+import { 
+  LayoutDashboard, 
+  Users, 
+  FolderKanban, 
+  GraduationCap, 
+  FileText, 
+  Settings, 
+  Bell,
+  LogOut
+} from "lucide-react";
+
+// Mapeo de strings a componentes de Lucide
+const ICON_MAP = {
+  LayoutDashboard,
+  Users,
+  FolderKanban,
+  GraduationCap,
+  FileText,
+  Settings,
+  Bell,
+};
 
 export default function Sidebar() {
-  const { rol, logout } = useAuth();
+  const { rol, logout, nombreUsuario } = useAuth();
   const opciones = MENU_POR_ROL[rol] ?? [];
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-60 bg-inverse-surface flex flex-col py-6 px-4 z-20">
-      <div className="mb-10 px-2 flex items-center gap-3">
-        <div className="w-8 h-8 rounded bg-primary-container flex items-center justify-center">
-          <span className="material-symbols-outlined text-on-primary-container text-[20px]">
-            school
-          </span>
+    <div className="w-64 h-screen bg-[#5B6275] text-white flex flex-col fixed left-0 top-0 z-20">
+      <div className="p-6 flex flex-col items-center border-b border-gray-600/50">
+        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-3 overflow-hidden p-1 shadow-md">
+          <img src="/logo.jpg" alt="Gradum Logo" className="w-full h-full object-contain rounded-full" />
         </div>
-        <div>
-          <h1 className="font-bold text-headline-md text-on-primary-fixed leading-none">
-            GRADUM
-          </h1>
-          <p className="text-label-caps text-secondary-fixed-dim opacity-70 mt-1">
-            Academic Management
-          </p>
-        </div>
+        <h1 className="text-xl font-bold tracking-wider">GRADUM</h1>
+        <p className="text-[10px] text-gray-300 tracking-widest text-center uppercase mt-1">Academic Management</p>
       </div>
 
-      <nav className="flex-1 flex flex-col gap-1">
-        {opciones.map((item) =>
-          item.path ? (
+      <nav className="flex-1 py-6 flex flex-col gap-2 px-3 overflow-y-auto">
+        {opciones.map((item) => {
+          const IconComponent = ICON_MAP[item.icon] || FileText;
+          return item.path ? (
             <NavLink
               key={item.label}
               to={item.path}
               end={item.path === "/"}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-lg text-body-md transition-colors ${
+                `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                   isActive
-                    ? "bg-primary-container text-on-primary-container font-semibold"
-                    : "text-on-surface-variant hover:bg-secondary-fixed hover:text-on-primary-fixed-variant"
+                    ? "bg-white/10 border-l-4 border-[#7A0B2E] text-white"
+                    : "hover:bg-white/5 text-gray-300"
                 }`
               }
             >
-              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
-              {item.label}
+              <IconComponent size={20} />
+              <span className="font-medium">{item.label}</span>
             </NavLink>
           ) : (
             <button
               key={item.label}
               disabled
-              className="flex items-center gap-3 px-4 py-2 rounded-lg text-body-md text-secondary-fixed-dim opacity-40 cursor-not-allowed text-left"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-300/50 transition-colors cursor-not-allowed w-full text-left"
             >
-              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
-              {item.label}
+              <IconComponent size={20} />
+              <span className="font-medium">{item.label}</span>
             </button>
           )
-        )}
+        })}
       </nav>
 
-      <div className="mt-auto pt-4 border-t border-secondary/30">
+      <div className="px-3 pb-6 border-t border-gray-600/50 pt-4">
         <button
           onClick={logout}
-          className="flex items-center gap-3 px-4 py-2 w-full text-left text-secondary-fixed-dim hover:text-on-primary-fixed transition-colors rounded-lg"
+          className="flex items-center w-full gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-300 transition-colors text-left"
         >
-          <span className="material-symbols-outlined text-[20px]">logout</span>
-          Cerrar sesión
+          <LogOut size={20} />
+          <span className="font-medium">Cerrar sesión</span>
         </button>
+        <div className="mt-2 p-3 bg-white/5 rounded-xl flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center font-bold text-white uppercase overflow-hidden">
+             {nombreUsuario ? nombreUsuario.slice(0, 2) : "U"}
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <p className="text-sm font-semibold truncate">{nombreUsuario}</p>
+            <p className="text-[10px] text-gray-400 truncate uppercase tracking-wider">{rol}</p>
+          </div>
+        </div>
       </div>
-    </aside>
+    </div>
   );
 }

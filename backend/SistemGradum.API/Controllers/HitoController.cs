@@ -31,7 +31,7 @@ public class HitoController : ControllerBase
 
     // POST /api/proyecto/{proyectoId}/hitos — RF-007
     [HttpPost("proyecto/{proyectoId:int}/hitos")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Create(int proyectoId, CreateHitosLoteDto dto)
     {
         try
@@ -47,7 +47,7 @@ public class HitoController : ControllerBase
 
     // PUT /api/hito/{id}
     [HttpPut("hito/{id:int}")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Update(int id, UpdateHitoDto dto)
     {
         var (success, error) = await this.hitoService.UpdateAsync(id, dto);
@@ -64,7 +64,7 @@ public class HitoController : ControllerBase
 
     // DELETE /api/hito/{id}
     [HttpDelete("hito/{id:int}")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Delete(int id)
     {
         var (success, error) = await this.hitoService.DeleteAsync(id);
@@ -115,7 +115,7 @@ public class HitoController : ControllerBase
 
     // PATCH /api/hito/{id}/aprobar — RF-010
     [HttpPatch("hito/{id:int}/aprobar")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Aprobar(int id)
     {
         var usuarioIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -136,7 +136,7 @@ public class HitoController : ControllerBase
 
     // PATCH /api/hito/{id}/rechazar — RN-05
     [HttpPatch("hito/{id:int}/rechazar")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Rechazar(int id, RechazarHitoDto dto)
     {
         var (success, error) = await this.hitoService.RechazarAsync(id, dto);

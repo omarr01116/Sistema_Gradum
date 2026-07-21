@@ -9,23 +9,23 @@ export const ROLE_LABELS = {
 // Ítems de navegación por rol.
 export const MENU_POR_ROL = {
   Administrador: [
-    { label: "Dashboard", icon: "dashboard", path: "/" },
-    { label: "Proyectos", icon: "folder_special", path: "/proyectos" },
-    { label: "Asesores", icon: "school", path: "/asesores" },
-    { label: "Usuarios", icon: "group", path: "/usuarios" },
-    { label: "Alertas", icon: "notifications", path: "/alertas" },
-    { label: "Configuración", icon: "settings", path: "/configuracion" },
+    { label: "Dashboard", icon: "LayoutDashboard", path: "/" },
+    { label: "Proyectos", icon: "FolderKanban", path: "/proyectos" },
+    { label: "Asesores", icon: "GraduationCap", path: "/asesores" },
+    { label: "Usuarios", icon: "Users", path: "/usuarios" },
+    { label: "Alertas", icon: "Bell", path: "/alertas" },
+    { label: "Configuración", icon: "Settings", path: "/configuracion" },
   ],
   Coordinador: [
-    { label: "Dashboard", icon: "dashboard", path: "/" },
-    { label: "Clientes", icon: "group", path: "/clientes" },
-    { label: "Proyectos", icon: "folder_special", path: "/proyectos" },
-    { label: "Asesores", icon: "school", path: "/asesores" },
-    { label: "Alertas", icon: "notifications", path: "/alertas" },
+    { label: "Dashboard", icon: "LayoutDashboard", path: "/" },
+    { label: "Clientes", icon: "Users", path: "/clientes" },
+    { label: "Proyectos", icon: "FolderKanban", path: "/proyectos" },
+    { label: "Asesores", icon: "GraduationCap", path: "/asesores" },
+    { label: "Alertas", icon: "Bell", path: "/alertas" },
   ],
   Asesor: [
-    { label: "Dashboard", icon: "dashboard", path: "/" },
-    { label: "Mis Proyectos", icon: "folder_special", path: "/proyectos" },
-    { label: "Alertas", icon: "notifications", path: "/alertas" },
+    { label: "Dashboard", icon: "LayoutDashboard", path: "/" },
+    { label: "Mis Proyectos", icon: "FolderKanban", path: "/proyectos" },
+    { label: "Alertas", icon: "Bell", path: "/alertas" },
   ],
 };

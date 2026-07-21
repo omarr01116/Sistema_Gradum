@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {}
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "projectName": "SistemGradum.Domain",
-        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "packagesPath": "C:\\Users\\JHOSIMAR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\obj\\",
+        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final\\backend\\SistemGradum.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\JHOSIMAR\\AppData\\Roaming\\NuGet\\NuGet.Config"

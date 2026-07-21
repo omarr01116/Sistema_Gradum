@@ -34,7 +34,7 @@ public class ProyectoController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Create(CreateProyectoDto dto)
     {
         try
@@ -49,7 +49,7 @@ public class ProyectoController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> Update(int id, UpdateProyectoDto dto)
     {
         try
@@ -64,7 +64,7 @@ public class ProyectoController : ControllerBase
     }
 
     [HttpPatch("{id:int}/estado")]
-    [Authorize(Roles = "Coordinador")]
+    [Authorize(Roles = "Administrador,Coordinador")]
     public async Task<IActionResult> CambiarEstado(int id, CambiarEstadoDto dto)
     {
         var usuarioIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

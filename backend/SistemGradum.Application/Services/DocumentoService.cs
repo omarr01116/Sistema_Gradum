@@ -115,6 +115,19 @@ public class DocumentoService : IDocumentoService
         return (true, null, rutaCompleta, version.NombreArchivoOriginal); 
     }
 
+    public async Task<List<DocumentoResponseDto>?> GetByProyectoIdAsync(int proyectoId, int? asesorIdFiltro)
+    {
+        var proyecto = await this.proyectoRepository.GetByIdAsync(proyectoId);
+        if (proyecto is null)
+            return null;
+
+        if (asesorIdFiltro.HasValue && proyecto.AsesorId != asesorIdFiltro.Value)
+            return null;
+
+        var documentos = await this.documentoRepository.GetByProyectoIdAsync(proyectoId);
+        return documentos.Select(this.MapToResponse).ToList();
+    }
+
     private DocumentoResponseDto MapToResponse(Documento d) 
     {
         // Buscamos la última versión para llenar los datos raíz que espera tu DTO
