@@ -18,7 +18,6 @@ public class AsesorService : IAsesorService
     var asesores = await this.asesorRepository.GetAllAsync();
 
     return asesores
-        .Where(a => a.Activo)
         .Select(MapToResponse)
         .ToList();
 }

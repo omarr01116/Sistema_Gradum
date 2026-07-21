@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { MENU_POR_ROL } from "../../constants/roles";
 
@@ -24,22 +25,34 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex-1 flex flex-col gap-1">
-        {opciones.map((item) => (
-          <button
-            key={item.label}
-            disabled={!item.path}
-            className={`flex items-center gap-3 px-4 py-2 rounded-lg text-body-md transition-colors text-left ${
-              item.path
-                ? "text-on-surface-variant hover:bg-secondary-fixed hover:text-on-primary-fixed-variant"
-                : "text-secondary-fixed-dim opacity-40 cursor-not-allowed"
-            }`}
-          >
-            <span className="material-symbols-outlined text-[20px]">
-              {item.icon}
-            </span>
-            {item.label}
-          </button>
-        ))}
+        {opciones.map((item) =>
+          item.path ? (
+            <NavLink
+              key={item.label}
+              to={item.path}
+              end={item.path === "/"}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-2 rounded-lg text-body-md transition-colors ${
+                  isActive
+                    ? "bg-primary-container text-on-primary-container font-semibold"
+                    : "text-on-surface-variant hover:bg-secondary-fixed hover:text-on-primary-fixed-variant"
+                }`
+              }
+            >
+              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+              {item.label}
+            </NavLink>
+          ) : (
+            <button
+              key={item.label}
+              disabled
+              className="flex items-center gap-3 px-4 py-2 rounded-lg text-body-md text-secondary-fixed-dim opacity-40 cursor-not-allowed text-left"
+            >
+              <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+              {item.label}
+            </button>
+          )
+        )}
       </nav>
 
       <div className="mt-auto pt-4 border-t border-secondary/30">

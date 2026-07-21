@@ -19,7 +19,6 @@ public class ClienteRepository : IClienteRepository
         // RF-003: "manteniendo su historial de proyectos intacto" → no se borra físicamente,
         // el desactivado simplemente se filtra de los listados normales.
         return await this.context.Clientes
-            .Where(c => c.Activo)
             .AsNoTracking()
             .ToListAsync();
     }

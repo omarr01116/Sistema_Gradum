@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
+import ClientesList from "../pages/clientes/ClientesList";
+import AsesoresList from "../pages/asesores/AsesoresList";
 
 export default function AppRoutes() {
   return (
@@ -12,6 +14,22 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/clientes"
+        element={
+          <ProtectedRoute allowedRoles={["Administrador", "Coordinador"]}>
+            <ClientesList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/asesores"
+        element={
+          <ProtectedRoute allowedRoles={["Administrador", "Coordinador"]}>
+            <AsesoresList />
           </ProtectedRoute>
         }
       />
