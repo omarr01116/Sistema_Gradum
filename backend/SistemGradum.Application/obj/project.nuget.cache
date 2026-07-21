@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "0B9nFVtCviY=",
+  "dgSpecHash": "PLnlC+K2X2U=",
   "success": true,
   "projectFilePath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\oore6\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

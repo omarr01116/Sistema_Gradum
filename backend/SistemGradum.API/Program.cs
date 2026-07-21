@@ -3,25 +3,56 @@ using SistemGradum.Application.Services;
 using SistemGradum.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using SistemGradum.Infrastructure.Data;
-// Asegúrate de incluir los namespaces correctos donde tengas AuthService y TokenService
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using SistemGradum.Infrastructure.Repositories;
+using SistemGradum.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Habilitar el uso de controladores
-builder.Services.AddControllers(); 
+builder.Services.AddControllers();
 
 // 2. Configurar Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 3. Inyección de dependencias (Registrar tus servicios)
-builder.Services.AddScoped<IClienteService, ClienteService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ITokenService, TokenService>(); 
+// 3. DbContext — PostgreSQL (Npgsql)
 var connectionString = builder.Configuration.GetConnectionString("Default");
-
 builder.Services.AddDbContext<SistemGradumDbContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36))));
+    options.UseNpgsql(connectionString));
+
+// 4. Autenticación JWT
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var jwtKey = jwtSettings["Key"]!;
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
+builder.Services.AddAuthorization();
+
+// 5. Inyección de dependencias
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 var app = builder.Build();
 
@@ -34,10 +65,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Habilitar autorización (importante ya que manejarás autenticación y roles)
-app.UseAuthorization();
+app.UseAuthentication(); // primero autentica
+app.UseAuthorization();  // luego autoriza — el orden importa
 
-// 4. Mapear los endpoints de los controladores para que Swagger y la API los reconozcan
 app.MapControllers();
 
 app.Run();

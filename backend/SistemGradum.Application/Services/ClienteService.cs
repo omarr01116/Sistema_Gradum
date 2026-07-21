@@ -9,17 +9,22 @@ public class ClienteService : IClienteService
     private readonly List<Cliente> clientes = new();
     private int siguienteId = 1;
 
-    public IEnumerable<Cliente> ObtenerTodos() => this.clientes;
+    public Task<List<Cliente>> ObtenerTodos()
+    {
+        return Task.FromResult(clientes);
+    }
 
-    public Cliente? ObtenerPorId(int id) =>
-        this.clientes.FirstOrDefault(c => c.Id == id);
+    public Cliente? ObtenerPorId(int id)
+    {
+        return clientes.FirstOrDefault(c => c.Id == id);
+    }
 
-    public Cliente Crear(CreateClienteDto dto)
+    public Task<Cliente> Crear(CreateClienteDto dto)
     {
         var cliente = new Cliente
         {
-            Id = this.siguienteId++,
-            CodigoCliente = $"CLI-{this.siguienteId:D4}",
+            Id = siguienteId,
+            CodigoCliente = $"CLI-{siguienteId:D4}",
             Nombres = dto.Nombres,
             Apellidos = dto.Apellidos,
             DniPasaporte = dto.DniPasaporte,
@@ -29,7 +34,9 @@ public class ClienteService : IClienteService
             Activo = true
         };
 
-        this.clientes.Add(cliente);
-        return cliente;
+        siguienteId++;
+        clientes.Add(cliente);
+
+        return Task.FromResult(cliente);
     }
 }

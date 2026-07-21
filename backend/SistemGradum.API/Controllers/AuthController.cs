@@ -16,11 +16,12 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult IniciarSesion([FromBody] LoginRequestDto dto)
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto request)
     {
-        var resultado = this.authService.IniciarSesion(dto);
+        var resultado = await this.authService.LoginAsync(request);
+
         if (resultado is null)
-            return Unauthorized(new { mensaje = "Credenciales inválidas" });
+            return Unauthorized(new { mensaje = "Usuario o contraseña incorrectos." });
 
         return Ok(resultado);
     }

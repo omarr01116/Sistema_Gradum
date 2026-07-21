@@ -1,4 +1,5 @@
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.deps.json
+D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.runtimeconfig.json
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.dll
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.pdb
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Application.dll
@@ -14,6 +15,5 @@ D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\Sist
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.dll
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\refint\SistemGradum.Infrastructure.dll
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.pdb
-D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\ref\SistemGradum.Infrastructure.dll
-D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\bin\Debug\net8.0\SistemGradum.Infrastructure.runtimeconfig.json
 D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\SistemGradum.Infrastructure.genruntimeconfig.cache
+D:\ultimo\SistemGradum\backend\SistemGradum.Infrastructure\obj\Debug\net8.0\ref\SistemGradum.Infrastructure.dll

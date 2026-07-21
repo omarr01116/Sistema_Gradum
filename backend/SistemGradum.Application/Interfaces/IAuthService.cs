@@ -4,5 +4,5 @@ namespace SistemGradum.Application.Interfaces;
 
 public interface IAuthService
 {
-    LoginResponseDto? IniciarSesion(LoginRequestDto dto);
+    Task<LoginResponseDto?> LoginAsync(LoginRequestDto request);
 }
