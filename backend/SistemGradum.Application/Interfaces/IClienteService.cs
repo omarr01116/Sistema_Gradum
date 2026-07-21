@@ -1,5 +1,4 @@
 using SistemGradum.Application.DTOs;
-using SistemGradum.domain.Entities;
 using SistemGradum.Domain.Entities;
 
 namespace SistemGradum.Application.Interfaces;
