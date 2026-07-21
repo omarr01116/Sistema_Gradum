@@ -178,7 +178,7 @@ export default function ProyectosBoard() {
                         </p>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center justify-center gap-2 transition-opacity">
                           <button onClick={() => setProyectoHitos(proyecto)} title="Ver Hitos" className="p-2 text-gray-400 hover:text-[#7A0B2E] hover:bg-[#7A0B2E]/10 rounded-lg transition-colors">
                             <Calendar size={18} />
                           </button>

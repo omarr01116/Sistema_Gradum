@@ -23,7 +23,9 @@ export default function HitosPanel({ proyecto }) {
       setLoading(true);
       const data = await getHitosByProyecto(proyecto.id);
       setHitos(data);
-      if (data.length === 0) setModoEdicion(true);
+      if (data.length === 0 && (rol === "Coordinador" || rol === "Administrador")) {
+        setModoEdicion(true);
+      }
     } catch (err) {
       setError("No se pudieron cargar los hitos.");
     } finally {
@@ -51,6 +53,18 @@ export default function HitosPanel({ proyecto }) {
 
   const guardarHitos = async () => {
     setError("");
+
+    for (const h of nuevosHitos) {
+      if (!h.nombreHito.trim()) {
+        setError("Todos los hitos deben tener un nombre.");
+        return;
+      }
+      if (!h.fechaCompromiso) {
+        setError("Todos los hitos deben tener una fecha de compromiso.");
+        return;
+      }
+    }
+
     const suma = nuevosHitos.reduce((acc, h) => acc + h.pesoPorcentual, 0);
     if (suma !== 100) {
       setError(`La suma de pesos debe ser exactamente 100% (actual: ${suma}%).`);
@@ -143,16 +157,16 @@ export default function HitosPanel({ proyecto }) {
                   <td className="py-3">{h.pesoPorcentual}%</td>
                   <td className="py-3">{new Date(h.fechaCompromiso).toLocaleDateString()}</td>
                   <td className="py-3">
-                    <Badge variant={h.estadoHito === "Aprobado" ? "success" : h.estadoHito === "Pendiente de aprobación" ? "warning" : "neutral"}>
-                      {h.estadoHito}
+                    <Badge variant={h.estadoHito === "Aprobado" ? "success" : h.estadoHito === "PendienteAprobacion" ? "warning" : "neutral"}>
+                      {h.estadoHito === "PendienteAprobacion" ? "Pendiente de aprobación" : h.estadoHito}
                     </Badge>
                   </td>
                   <td className="py-3 text-right">
                     <div className="flex justify-end gap-2">
-                      {rol === "Asesor" && h.estadoHito === "En progreso" && (
+                      {rol === "Asesor" && (h.estadoHito === "Pendiente" || h.estadoHito === "EnProgreso" || h.estadoHito === "Correcciones") && (
                         <Button variant="secondary" onClick={() => handleAccion(h.id, "completar")}>Completar</Button>
                       )}
-                      {rol === "Coordinador" && h.estadoHito === "Pendiente de aprobación" && (
+                      {(rol === "Coordinador" || rol === "Administrador") && h.estadoHito === "PendienteAprobacion" && (
                         <>
                           <Button variant="secondary" onClick={() => {
                             const motivo = prompt("Motivo de rechazo:");
@@ -167,7 +181,12 @@ export default function HitosPanel({ proyecto }) {
               ))}
             </tbody>
           </table>
-          {rol === "Coordinador" && hitos.length > 0 && (
+          {hitos.length === 0 && (
+            <div className="py-8 text-center text-gray-500 italic">
+              El Coordinador aún no ha definido los hitos para este proyecto.
+            </div>
+          )}
+          {(rol === "Coordinador" || rol === "Administrador") && hitos.length > 0 && (
             <div className="mt-4">
               <Button variant="secondary" onClick={() => {
                 setNuevosHitos(hitos.map(h => ({ ...h, fechaCompromiso: h.fechaCompromiso.split('T')[0] })));

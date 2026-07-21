@@ -6,7 +6,7 @@ export const getHitosByProyecto = async (proyectoId) => {
 };
 
 export const crearHitosLote = async (proyectoId, hitos) => {
-  const response = await api.post(`/Proyecto/${proyectoId}/hitos`, hitos);
+  const response = await api.post(`/Proyecto/${proyectoId}/hitos`, { hitos });
   return response.data;
 };
 

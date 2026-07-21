@@ -128,9 +128,9 @@ public class HitoService : IHitoService
         if (asesorIdFiltro.HasValue && proyecto.AsesorId != asesorIdFiltro.Value)
             return (false, "Hito no encontrado.");
 
-        if (hito.EstadoHito is not ("Pendiente" or "EnProgreso"))
+        if (hito.EstadoHito is not ("Pendiente" or "EnProgreso" or "Correcciones"))
             return (false,
-                $"No se puede completar un hito en estado '{hito.EstadoHito}'. Debe estar en 'Pendiente' o 'EnProgreso'.");
+                $"No se puede completar un hito en estado '{hito.EstadoHito}'. Debe estar en 'Pendiente', 'EnProgreso' o 'Correcciones'.");
 
         hito.EstadoHito = "PendienteAprobacion";
         hito.UsuarioCompletadoId = usuarioId;
