@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SistemGradum.Infrastructure/1.0.0": {
+        "dependencies": {
+          "SistemGradum.Application": "1.0.0",
+          "SistemGradum.Domain": "1.0.0"
+        },
+        "runtime": {
+          "SistemGradum.Infrastructure.dll": {}
+        }
+      },
+      "SistemGradum.Application/1.0.0": {
+        "dependencies": {
+          "SistemGradum.Domain": "1.0.0"
+        },
+        "runtime": {
+          "SistemGradum.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SistemGradum.Domain/1.0.0": {
+        "runtime": {
+          "SistemGradum.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SistemGradum.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SistemGradum.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SistemGradum.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

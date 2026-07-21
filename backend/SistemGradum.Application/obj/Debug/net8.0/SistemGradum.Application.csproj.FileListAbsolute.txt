@@ -1,0 +1,15 @@
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Application.deps.json
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Application.dll
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Application.pdb
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Domain.dll
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\bin\Debug\net8.0\SistemGradum.Domain.pdb
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.csproj.AssemblyReference.cache
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.AssemblyInfoInputs.cache
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.AssemblyInfo.cs
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.csproj.CoreCompileInputs.cache
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGr.A3ADB3B2.Up2Date
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.dll
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\refint\SistemGradum.Application.dll
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\SistemGradum.Application.pdb
+D:\ultimo\SistemGradum\backend\SistemGradum.Application\obj\Debug\net8.0\ref\SistemGradum.Application.dll
