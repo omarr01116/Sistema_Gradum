@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+      "projectUniqueName": "D:\\versiones ultimo\\version9\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
       "projectName": "SistemGradum.Domain",
-      "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+      "projectPath": "D:\\versiones ultimo\\version9\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
       "packagesPath": "C:\\Users\\oore6\\.nuget\\packages\\",
-      "outputPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\obj\\",
+      "outputPath": "D:\\versiones ultimo\\version9\\SistemGradum\\backend\\SistemGradum.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\oore6\\AppData\\Roaming\\NuGet\\NuGet.Config"

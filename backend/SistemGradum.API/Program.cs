@@ -85,6 +85,9 @@ builder.Services.AddScoped<IAsesorService, AsesorService>();
 builder.Services.AddScoped<IConfiguracionSistemaRepository, ConfiguracionSistemaRepository>();
 builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
 builder.Services.AddScoped<IProyectoService, ProyectoService>();
+builder.Services.AddScoped<IHitoRepository, HitoRepository>();
+builder.Services.AddScoped<IHitoService, HitoService>();
+
 
 var app = builder.Build();
 
