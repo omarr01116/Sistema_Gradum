@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemGradum.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f92c8ca99b81ae687c90f6587803d89e726f967")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbe3d36af24fd813046d07a2c5d7b690b4147a4d")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemGradum.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemGradum.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

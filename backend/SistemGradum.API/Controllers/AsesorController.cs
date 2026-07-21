@@ -7,7 +7,8 @@ namespace SistemGradum.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Administrador,Coordinador")]
+// CORRECCIÓN: Se agrega Asesor para que pueda ver la lista en el frontend.
+[Authorize(Roles = "Administrador,Coordinador,Asesor")]
 public class AsesorController : ControllerBase
 {
     private readonly IAsesorService asesorService;
