@@ -91,6 +91,8 @@ builder.Services.AddScoped<IHitoService, HitoService>();
 builder.Services.AddScoped<IDocumentoRepository, DocumentoRepository>();
 builder.Services.AddScoped<IDocumentoService, DocumentoService>();
 builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoArchivos>();   // ← antes: solo AlmacenamientoArchivos
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 

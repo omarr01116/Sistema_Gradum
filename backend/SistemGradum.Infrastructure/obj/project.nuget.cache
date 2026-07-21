@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wxsctENjSDo=",
+  "dgSpecHash": "eslg8/KbgPI=",
   "success": true,
-  "projectFilePath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj",
+  "projectFilePath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\oore6\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\oore6\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

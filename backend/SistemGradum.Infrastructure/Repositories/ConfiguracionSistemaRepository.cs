@@ -14,10 +14,22 @@ public class ConfiguracionSistemaRepository : IConfiguracionSistemaRepository
         this.context = context;
     }
 
+    // Se quitó AsNoTracking(): este método ahora también se usa para Update
+    // (Commit 12), así que EF Core necesita poder rastrear los cambios.
     public async Task<ConfiguracionSistema?> GetByClaveAsync(string clave)
     {
         return await this.context.ConfiguracionesSistema
-            .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Clave == clave);
+    }
+
+    public async Task UpdateAsync(ConfiguracionSistema configuracion)
+    {
+        this.context.ConfiguracionesSistema.Update(configuracion);
+        await Task.CompletedTask;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await this.context.SaveChangesAsync();
     }
 }

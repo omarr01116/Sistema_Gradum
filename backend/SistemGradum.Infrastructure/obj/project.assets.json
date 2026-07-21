@@ -2583,11 +2583,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\github\\SistemGradum\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj",
+      "projectUniqueName": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj",
       "projectName": "SistemGradum.Infrastructure",
-      "projectPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj",
+      "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Infrastructure\\SistemGradum.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\oore6\\.nuget\\packages\\",
-      "outputPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Infrastructure\\obj\\",
+      "outputPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\oore6\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -2602,11 +2602,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
-              "projectPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj"
+            "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
+              "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj"
             },
-            "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
-              "projectPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj"
+            "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+              "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj"
             }
           }
         }

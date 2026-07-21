@@ -19,4 +19,39 @@ public class UsuarioRepository : IUsuarioRepository
         return await this.context.Usuarios
             .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario && u.Activo);
     }
+
+    public async Task<Usuario?> GetByUsernameIncludingInactivoAsync(string nombreUsuario)
+    {
+        return await this.context.Usuarios
+            .FirstOrDefaultAsync(u => u.NombreUsuario == nombreUsuario);
+    }
+
+    public async Task<List<Usuario>> GetAllAsync()
+    {
+        return await this.context.Usuarios
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<Usuario?> GetByIdAsync(int id)
+    {
+        return await this.context.Usuarios
+            .FirstOrDefaultAsync(u => u.Id == id);
+    }
+
+    public async Task AddAsync(Usuario usuario)
+    {
+        await this.context.Usuarios.AddAsync(usuario);
+    }
+
+    public async Task UpdateAsync(Usuario usuario)
+    {
+        this.context.Usuarios.Update(usuario);
+        await Task.CompletedTask;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await this.context.SaveChangesAsync();
+    }
 }
