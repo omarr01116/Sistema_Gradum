@@ -22,23 +22,39 @@ public class ConfiguracionController : ControllerBase
     public async Task<IActionResult> GetByClave(string clave)
     {
         var config = await this.configuracionRepository.GetByClaveAsync(clave);
-        return config is null ? NotFound() : Ok(new { config.Clave, config.Valor, config.Descripcion });
+        if (config is null)
+        {
+            // Retornar un valor por defecto si no existe en la BD
+            return Ok(new { Clave = clave, Valor = "5", Descripcion = "Límite de proyectos activos por asesor" });
+        }
+        return Ok(new { config.Clave, config.Valor, config.Descripcion });
     }
 
     // PUT /api/configuracion/{clave}
     [HttpPut("{clave}")]
     public async Task<IActionResult> Update(string clave, UpdateConfiguracionDto dto)
     {
-        var config = await this.configuracionRepository.GetByClaveAsync(clave);
-        if (config is null)
-            return NotFound(new { mensaje = $"No existe una configuración con clave '{clave}'." });
-
         if (string.IsNullOrWhiteSpace(dto.Valor))
             return BadRequest(new { mensaje = "El valor no puede estar vacío." });
 
-        config.Valor = dto.Valor;
+        var config = await this.configuracionRepository.GetByClaveAsync(clave);
+        if (config is null)
+        {
+            // En lugar de NotFound, lo creamos
+            config = new SistemGradum.Domain.Entities.ConfiguracionSistema
+            {
+                Clave = clave,
+                Valor = dto.Valor,
+                Descripcion = "Límite de proyectos activos por asesor"
+            };
+            await this.configuracionRepository.AddAsync(config);
+        }
+        else
+        {
+            config.Valor = dto.Valor;
+            await this.configuracionRepository.UpdateAsync(config);
+        }
 
-        await this.configuracionRepository.UpdateAsync(config);
         await this.configuracionRepository.SaveChangesAsync();
 
         return NoContent();

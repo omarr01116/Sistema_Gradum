@@ -6,27 +6,26 @@ export const ROLE_LABELS = {
   Asesor: "Asesor Académico",
 };
 
-// Ítems de navegación por rol. `path: null` = módulo aún no
-// implementado (se muestra deshabilitado en el Sidebar).
+// Ítems de navegación por rol.
 export const MENU_POR_ROL = {
   Administrador: [
     { label: "Dashboard", icon: "dashboard", path: "/" },
     { label: "Proyectos", icon: "folder_special", path: "/proyectos" },
-    { label: "Asesores", icon: "school", path: "/asesores" }, // activado
-    { label: "Usuarios", icon: "group", path: null },          // pendiente: commit nuevo
-    { label: "Alertas", icon: "notifications", path: null },   // pendiente: commit nuevo
-    { label: "Configuración", icon: "settings", path: null },  // pendiente: commit nuevo
+    { label: "Asesores", icon: "school", path: "/asesores" },
+    { label: "Usuarios", icon: "group", path: "/usuarios" },
+    { label: "Alertas", icon: "notifications", path: "/alertas" },
+    { label: "Configuración", icon: "settings", path: "/configuracion" },
   ],
   Coordinador: [
     { label: "Dashboard", icon: "dashboard", path: "/" },
     { label: "Clientes", icon: "group", path: "/clientes" },
     { label: "Proyectos", icon: "folder_special", path: "/proyectos" },
     { label: "Asesores", icon: "school", path: "/asesores" },
-    { label: "Alertas", icon: "notifications", path: null },   // pendiente: commit nuevo
+    { label: "Alertas", icon: "notifications", path: "/alertas" },
   ],
   Asesor: [
     { label: "Dashboard", icon: "dashboard", path: "/" },
     { label: "Mis Proyectos", icon: "folder_special", path: "/proyectos" },
-    { label: "Alertas", icon: "notifications", path: null },   // pendiente: commit nuevo
+    { label: "Alertas", icon: "notifications", path: "/alertas" },
   ],
 };

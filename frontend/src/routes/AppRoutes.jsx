@@ -5,6 +5,9 @@ import Dashboard from "../pages/Dashboard";
 import ClientesList from "../pages/clientes/ClientesList";
 import AsesoresList from "../pages/asesores/AsesoresList";
 import ProyectosBoard from "../pages/proyectos/ProyectosBoard";
+import UsuariosList from "../pages/admin/UsuariosList";
+import ConfiguracionPage from "../pages/admin/ConfiguracionPage";
+import AlertasList from "../pages/AlertasList";
 
 export default function AppRoutes() {
   return (
@@ -26,6 +29,18 @@ export default function AppRoutes() {
             <ProyectosBoard />
           </ProtectedRoute>
         }
+      />
+      <Route
+        path="/usuarios"
+        element={<ProtectedRoute allowedRoles={["Administrador"]}><UsuariosList /></ProtectedRoute>}
+      />
+      <Route
+        path="/configuracion"
+        element={<ProtectedRoute allowedRoles={["Administrador"]}><ConfiguracionPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/alertas"
+        element={<ProtectedRoute><AlertasList /></ProtectedRoute>}
       />
     </Routes>
   );

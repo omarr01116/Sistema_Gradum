@@ -3,7 +3,7 @@ import { ESTADOS_PROYECTO } from "../../constants/estadosProyecto";
 
 export default function ProyectoCard({
   proyecto, clienteNombre, asesorNombre,
-  puedeTransicionar, onCambiarEstado, onVerBitacora, onEditar,
+  puedeTransicionar, onCambiarEstado, onVerBitacora, onVerHitos, onVerDocumentos, onEditar,
 }) {
   const config = ESTADOS_PROYECTO[proyecto.estadoProyecto];
   const transiciones = config?.transicionesValidas ?? [];
@@ -16,6 +16,13 @@ export default function ProyectoCard({
       </div>
 
       <h4 className="font-semibold text-body-md text-on-surface mb-1 line-clamp-2">{proyecto.tema}</h4>
+      
+      <div className="w-full bg-surface-container rounded-full h-1.5 mb-3">
+        <div 
+          className="bg-primary h-1.5 rounded-full transition-all duration-500" 
+          style={{ width: `${proyecto.porcentajeAvance || 0}%` }}
+        ></div>
+      </div>
       <p className="text-body-sm text-on-surface-variant mb-3">
         {clienteNombre} · {asesorNombre ?? "Sin asesor"}
       </p>
@@ -24,6 +31,12 @@ export default function ProyectoCard({
       </p>
 
       <div className="flex flex-wrap gap-3 mb-2">
+        <button onClick={() => onVerHitos(proyecto)} className="text-body-sm text-primary hover:underline font-medium">
+          Hitos ({proyecto.porcentajeAvance || 0}%)
+        </button>
+        <button onClick={() => onVerDocumentos(proyecto)} className="text-body-sm text-primary hover:underline">
+          Documentos
+        </button>
         <button onClick={() => onVerBitacora(proyecto)} className="text-body-sm text-primary hover:underline">
           Bitácora
         </button>

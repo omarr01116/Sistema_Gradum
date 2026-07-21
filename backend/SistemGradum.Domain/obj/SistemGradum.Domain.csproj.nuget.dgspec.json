@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {}
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {}
   },
   "projects": {
-    "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+    "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "projectName": "SistemGradum.Domain",
-        "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
-        "packagesPath": "C:\\Users\\oore6\\.nuget\\packages\\",
-        "outputPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\obj\\",
+        "projectPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "packagesPath": "C:\\Users\\JHOSIMAR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\JHOSIMAR\\Documents\\Construccion de software\\Gradum 2\\versiones ultimo\\SistemGradum_final 1.0\\backend\\SistemGradum.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\oore6\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\JHOSIMAR\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -58,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -63,6 +63,8 @@ namespace SistemGradum.Infrastructure.Migrations
 
                     b.HasIndex("UsuarioDestinoId");
 
+                    b.HasIndex("UsuarioDestinoId", "Leida");
+
                     b.ToTable("alertas", (string)null);
                 });
 

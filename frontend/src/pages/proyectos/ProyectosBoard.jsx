@@ -7,6 +7,8 @@ import FormMessage from "../../components/ui/FormMessage";
 import ProyectoCard from "./ProyectoCard";
 import ProyectoForm from "./ProyectoForm";
 import BitacoraPanel from "./BitacoraPanel";
+import HitosPanel from "./HitosPanel";
+import DocumentosPanel from "./DocumentosPanel";
 import { getProyectos, cambiarEstadoProyecto } from "../../services/proyectoService";
 import { getClientes } from "../../services/clienteService";
 import { getAsesores } from "../../services/asesorService";
@@ -27,6 +29,8 @@ export default function ProyectosBoard() {
   const [modalFormOpen, setModalFormOpen] = useState(false);
   const [proyectoEditando, setProyectoEditando] = useState(null);
   const [proyectoBitacora, setProyectoBitacora] = useState(null);
+  const [proyectoHitos, setProyectoHitos] = useState(null);
+  const [proyectoDocumentos, setProyectoDocumentos] = useState(null);
 
   const cargarDatos = useCallback(async () => {
     try {
@@ -134,6 +138,8 @@ export default function ProyectosBoard() {
                         puedeTransicionar={puedeGestionar}
                         onCambiarEstado={handleCambiarEstado}
                         onVerBitacora={setProyectoBitacora}
+                        onVerHitos={setProyectoHitos}
+                        onVerDocumentos={setProyectoDocumentos}
                         onEditar={abrirEditar}
                       />
                     ))}
@@ -163,6 +169,26 @@ export default function ProyectosBoard() {
       >
         {proyectoBitacora && (
           <BitacoraPanel proyecto={proyectoBitacora} puedeEscribir={rol !== "Administrador"} />
+        )}
+      </Modal>
+
+      <Modal
+        isOpen={!!proyectoHitos}
+        onClose={() => setProyectoHitos(null)}
+        title={`Hitos y Avance — ${proyectoHitos?.codigoProyecto ?? ""}`}
+      >
+        {proyectoHitos && (
+          <HitosPanel proyecto={proyectoHitos} />
+        )}
+      </Modal>
+
+      <Modal
+        isOpen={!!proyectoDocumentos}
+        onClose={() => setProyectoDocumentos(null)}
+        title={`Documentos — ${proyectoDocumentos?.codigoProyecto ?? ""}`}
+      >
+        {proyectoDocumentos && (
+          <DocumentosPanel proyecto={proyectoDocumentos} />
         )}
       </Modal>
     </MainLayout>

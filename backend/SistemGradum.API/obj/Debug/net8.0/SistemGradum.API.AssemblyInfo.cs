@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemGradum.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbe3d36af24fd813046d07a2c5d7b690b4147a4d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e620b92279531159e4eeb5c76c875647446c1fc0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemGradum.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemGradum.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

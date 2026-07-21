@@ -22,6 +22,11 @@ public class ConfiguracionSistemaRepository : IConfiguracionSistemaRepository
             .FirstOrDefaultAsync(c => c.Clave == clave);
     }
 
+    public async Task AddAsync(ConfiguracionSistema configuracion)
+    {
+        await this.context.ConfiguracionesSistema.AddAsync(configuracion);
+    }
+
     public async Task UpdateAsync(ConfiguracionSistema configuracion)
     {
         this.context.ConfiguracionesSistema.Update(configuracion);

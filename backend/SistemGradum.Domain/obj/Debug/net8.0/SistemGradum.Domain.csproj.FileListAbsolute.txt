@@ -9,3 +9,36 @@ D:\ultimo\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum
 D:\ultimo\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\refint\SistemGradum.Domain.dll
 D:\ultimo\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.pdb
 D:\ultimo\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\ref\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.deps.json
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.pdb
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.AssemblyInfoInputs.cache
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.AssemblyInfo.cs
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.csproj.CoreCompileInputs.cache
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\refint\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.pdb
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\version16\SistemGradum\backend\SistemGradum.Domain\obj\Debug\net8.0\ref\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.deps.json
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.pdb
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.AssemblyInfoInputs.cache
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.AssemblyInfo.cs
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.csproj.CoreCompileInputs.cache
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\refint\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.pdb
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final\backend\SistemGradum.Domain\obj\Debug\net8.0\ref\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.deps.json
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\bin\Debug\net8.0\SistemGradum.Domain.pdb
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.AssemblyInfoInputs.cache
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.AssemblyInfo.cs
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.csproj.CoreCompileInputs.cache
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\refint\SistemGradum.Domain.dll
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\SistemGradum.Domain.pdb
+C:\Users\JHOSIMAR\Documents\Construccion de software\Gradum 2\versiones ultimo\SistemGradum_final 1.0\backend\SistemGradum.Domain\obj\Debug\net8.0\ref\SistemGradum.Domain.dll
