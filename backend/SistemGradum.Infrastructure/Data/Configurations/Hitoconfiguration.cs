@@ -31,6 +31,9 @@ public class HitoConfiguration : IEntityTypeConfiguration<Hito>
         // para evitar el error de Npgsql con Kind=Unspecified.
         builder.Property(h => h.FechaCompromiso).HasColumnType("date");
 
-        builder.Property(h => h.RutaEvidenciaTemporal).HasMaxLength(500);
+        builder.HasOne(h => h.DocumentoEvidencia)
+            .WithMany()
+            .HasForeignKey(h => h.DocumentoEvidenciaId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

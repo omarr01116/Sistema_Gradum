@@ -204,20 +204,16 @@ namespace SistemGradum.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<string>("NombreArchivoOriginal")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProyectoId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("VersionActual")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProyectoId");
+                    b.HasIndex("ProyectoId", "Categoria")
+                        .IsUnique();
 
                     b.ToTable("documentos", (string)null);
                 });
@@ -229,6 +225,9 @@ namespace SistemGradum.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DocumentoEvidenciaId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("EstadoHito")
                         .IsRequired()
@@ -262,10 +261,6 @@ namespace SistemGradum.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<string>("RutaEvidenciaTemporal")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
                     b.Property<int?>("UsuarioAprobadorId")
                         .HasColumnType("integer");
 
@@ -273,6 +268,8 @@ namespace SistemGradum.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DocumentoEvidenciaId");
 
                     b.HasIndex("ProyectoId");
 
@@ -443,6 +440,10 @@ namespace SistemGradum.Infrastructure.Migrations
                     b.Property<DateTime>("FechaSubida")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("NombreArchivoOriginal")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("NumeroVersion")
                         .HasColumnType("integer");
 
@@ -477,11 +478,18 @@ namespace SistemGradum.Infrastructure.Migrations
 
             modelBuilder.Entity("SistemGradum.Domain.Entities.Hito", b =>
                 {
+                    b.HasOne("SistemGradum.Domain.Entities.Documento", "DocumentoEvidencia")
+                        .WithMany()
+                        .HasForeignKey("DocumentoEvidenciaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("SistemGradum.Domain.Entities.Proyecto", "Proyecto")
                         .WithMany("Hitos")
                         .HasForeignKey("ProyectoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("DocumentoEvidencia");
 
                     b.Navigation("Proyecto");
                 });

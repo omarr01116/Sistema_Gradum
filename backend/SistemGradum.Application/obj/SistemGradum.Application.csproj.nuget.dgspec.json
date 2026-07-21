@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {}
+    "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {}
   },
   "projects": {
-    "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
+    "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
+        "projectUniqueName": "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
         "projectName": "SistemGradum.Application",
-        "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
+        "projectPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\SistemGradum.Application.csproj",
         "packagesPath": "C:\\Users\\oore6\\.nuget\\packages\\",
-        "outputPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Application\\obj\\",
+        "outputPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\oore6\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
-                "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj"
+              "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+                "projectPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj"
               }
             }
           }
@@ -64,6 +64,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
@@ -72,14 +75,14 @@
         }
       }
     },
-    "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
+    "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectUniqueName": "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "projectName": "SistemGradum.Domain",
-        "projectPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
+        "projectPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\SistemGradum.Domain.csproj",
         "packagesPath": "C:\\Users\\oore6\\.nuget\\packages\\",
-        "outputPath": "D:\\ultimo\\SistemGradum\\backend\\SistemGradum.Domain\\obj\\",
+        "outputPath": "D:\\github\\SistemGradum\\backend\\SistemGradum.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\oore6\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -13,10 +13,12 @@ namespace SistemGradum.API.Controllers;
 public class HitoController : ControllerBase
 {
     private readonly IHitoService hitoService;
+    private readonly IDocumentoService documentoService;   // ← faltaba
 
-    public HitoController(IHitoService hitoService)
+    public HitoController(IHitoService hitoService, IDocumentoService documentoService)
     {
         this.hitoService = hitoService;
+        this.documentoService = documentoService;           // ← faltaba
     }
 
     // GET /api/proyecto/{proyectoId}/hitos
@@ -35,7 +37,7 @@ public class HitoController : ControllerBase
         try
         {
             var creados = await this.hitoService.CrearLoteAsync(proyectoId, dto);
-            return CreatedAtAction(nameof(GetByProyecto), new { proyectoId }, creados);
+            return CreatedAtAction(nameof(this.GetByProyecto), new { proyectoId }, creados);
         }
         catch (ReglaNegocioException ex)
         {
@@ -77,37 +79,38 @@ public class HitoController : ControllerBase
         return NoContent();
     }
 
-    // RN-08: mismo patrón que ProyectoController.
-    private int? ObtenerAsesorIdFiltro()
-    {
-        if (!User.IsInRole("Asesor"))
-            return null;
-
-        var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
-        return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
-            ? asesorId
-            : null;
-    }
-
     // PATCH /api/hito/{id}/completar — RF-009
     [HttpPatch("hito/{id:int}/completar")]
     [Authorize(Roles = "Asesor")]
-    public async Task<IActionResult> Completar(int id, CompletarHitoDto dto)
+    public async Task<IActionResult> Completar(int id, [FromForm] CompletarHitoDto dto)
     {
         var usuarioIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (usuarioIdClaim is null || !int.TryParse(usuarioIdClaim, out var usuarioId))
             return Unauthorized();
 
-        var (success, error) = await this.hitoService.CompletarAsync(id, dto, usuarioId, this.ObtenerAsesorIdFiltro());
+        int? documentoId = null;
 
-        if (!success)
+        // Usamos dto.Evidencia en lugar de la variable suelta
+        if (dto.Evidencia is not null)
         {
-            return error == "Hito no encontrado."
-                ? NotFound(new { mensaje = error })
-                : BadRequest(new { mensaje = error });
+            var hitoActual = await this.hitoService.ObtenerProyectoIdAsync(id);
+            if (hitoActual is null)
+                return NotFound(new { mensaje = "Hito no encontrado." });
+
+            var (subOk, subError, subResultado) = await this.documentoService.SubirAsync(
+                hitoActual.Value, $"Evidencia-Hito-{id}", dto.Evidencia, usuarioId, this.ObtenerAsesorIdFiltro());
+
+            if (!subOk)
+                return BadRequest(new { mensaje = subError });
+
+            documentoId = subResultado!.Id;
         }
 
-        return NoContent();
+        var (success, error) = await this.hitoService.CompletarAsync(id, documentoId, usuarioId, this.ObtenerAsesorIdFiltro());
+        
+        return success
+            ? NoContent()
+            : (error == "Hito no encontrado." ? NotFound(new { mensaje = error }) : BadRequest(new { mensaje = error }));
     }
 
     // PATCH /api/hito/{id}/aprobar — RF-010
@@ -146,5 +149,17 @@ public class HitoController : ControllerBase
         }
 
         return NoContent();
+    }
+
+    // RN-08: mismo patrón que ProyectoController.
+    private int? ObtenerAsesorIdFiltro()
+    {
+        if (!User.IsInRole("Asesor"))
+            return null;
+
+        var asesorIdClaim = User.FindFirst("AsesorId")?.Value;
+        return asesorIdClaim is not null && int.TryParse(asesorIdClaim, out var asesorId)
+            ? asesorId
+            : null;
     }
 }

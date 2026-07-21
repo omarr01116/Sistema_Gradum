@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SistemGradum.Infrastructure.Repositories;
+using SistemGradum.Infrastructure.Storage;
 using SistemGradum.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -87,6 +88,9 @@ builder.Services.AddScoped<IProyectoRepository, ProyectoRepository>();
 builder.Services.AddScoped<IProyectoService, ProyectoService>();
 builder.Services.AddScoped<IHitoRepository, HitoRepository>();
 builder.Services.AddScoped<IHitoService, HitoService>();
+builder.Services.AddScoped<IDocumentoRepository, DocumentoRepository>();
+builder.Services.AddScoped<IDocumentoService, DocumentoService>();
+builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoArchivos>();   // ← antes: solo AlmacenamientoArchivos
 
 var app = builder.Build();
 

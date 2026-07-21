@@ -114,7 +114,7 @@ public class HitoService : IHitoService
 
     // RF-009: el Asesor marca el hito como completado.
     public async Task<(bool Success, string? Error)> CompletarAsync(
-        int id, CompletarHitoDto dto, int usuarioId, int? asesorIdFiltro)
+        int id, int? documentoEvidenciaId, int usuarioId, int? asesorIdFiltro)
     {
         var hito = await this.hitoRepository.GetByIdAsync(id);
         if (hito is null)
@@ -135,7 +135,7 @@ public class HitoService : IHitoService
         hito.EstadoHito = "PendienteAprobacion";
         hito.UsuarioCompletadoId = usuarioId;
         hito.FechaCompletado = DateTime.UtcNow;
-        hito.RutaEvidenciaTemporal = dto.RutaEvidenciaTemporal;
+        hito.DocumentoEvidenciaId = documentoEvidenciaId;
 
         await this.hitoRepository.UpdateAsync(hito);
         await this.hitoRepository.SaveChangesAsync();
@@ -194,6 +194,14 @@ public class HitoService : IHitoService
         return (true, null);
     }
 
+    // RF-011: obtiene solo el ProyectoId de un hito, usado por el Controller
+    // para saber en qué proyecto/carpeta guardar la evidencia antes de completar.
+    public async Task<int?> ObtenerProyectoIdAsync(int hitoId)
+    {
+        var hito = await this.hitoRepository.GetByIdAsync(hitoId);
+        return hito?.ProyectoId;
+    }
+
     private static HitoResponseDto MapToResponse(Hito h) => new()
     {
         Id = h.Id,
@@ -208,6 +216,6 @@ public class HitoService : IHitoService
         UsuarioAprobadorId = h.UsuarioAprobadorId,
         FechaAprobacion = h.FechaAprobacion,
         RazonRechazo = h.RazonRechazo,
-        RutaEvidenciaTemporal = h.RutaEvidenciaTemporal
+        DocumentoEvidenciaId = h.DocumentoEvidenciaId
     };
 }
