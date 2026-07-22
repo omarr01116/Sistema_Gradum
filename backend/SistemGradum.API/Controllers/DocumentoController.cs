@@ -65,14 +65,13 @@ public class DocumentoController : ControllerBase
     [HttpGet("documento/{id:int}/version/{numero:int}/descargar")]
     public async Task<IActionResult> Descargar(int id, int numero)
     {
-        var (success, error, rutaCompleta, nombreDescarga) =
+        var (success, error, stream, nombreDescarga) =
             await this.documentoService.ObtenerParaDescargaAsync(id, numero, this.ObtenerAsesorIdFiltro());
 
         if (!success)
             return NotFound(new { mensaje = error });
 
-        var stream = new System.IO.FileStream(rutaCompleta!, System.IO.FileMode.Open, System.IO.FileAccess.Read);
-        return File(stream, "application/octet-stream", nombreDescarga);
+        return File(stream!, "application/octet-stream", nombreDescarga);
     }
 
     // RN-08: mismo patrón que ProyectoController y HitoController.

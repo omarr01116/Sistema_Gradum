@@ -47,18 +47,20 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+var allowedOrigin = builder.Configuration["Cors:AllowedOrigin"] ?? "http://localhost:5173";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendDev", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(allowedOrigin)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
 // 3. DbContext — PostgreSQL (Npgsql)
-var connectionString = builder.Configuration.GetConnectionString("Default");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? builder.Configuration.GetConnectionString("Default"); // Mantener compatibilidad temporal
 builder.Services.AddDbContext<SistemGradumDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -102,7 +104,15 @@ builder.Services.AddScoped<IHitoRepository, HitoRepository>();
 builder.Services.AddScoped<IHitoService, HitoService>();
 builder.Services.AddScoped<IDocumentoRepository, DocumentoRepository>();
 builder.Services.AddScoped<IDocumentoService, DocumentoService>();
-builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoArchivos>();   // ← antes: solo AlmacenamientoArchivos
+var blobConnectionString = builder.Configuration["AzureBlobStorage:ConnectionString"];
+if (!string.IsNullOrEmpty(blobConnectionString))
+{
+    builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoBlobAzure>();
+}
+else
+{
+    builder.Services.AddSingleton<IAlmacenamientoArchivos, AlmacenamientoArchivos>();
+}
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IObservacionRepository, ObservacionRepository>();
 builder.Services.AddScoped<IObservacionService, ObservacionService>();

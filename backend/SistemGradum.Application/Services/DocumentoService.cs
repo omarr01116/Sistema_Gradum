@@ -94,7 +94,7 @@ public class DocumentoService : IDocumentoService
         return (true, null, this.MapToResponse(documento));
     }
 
-    public async Task<(bool, string?, string?, string?)> ObtenerParaDescargaAsync(
+    public async Task<(bool, string?, System.IO.Stream?, string?)> ObtenerParaDescargaAsync(
         int documentoId, int numeroVersion, int? asesorIdFiltro)
     {
         var documento = await this.documentoRepository.GetByIdConVersionesAsync(documentoId);
@@ -108,11 +108,19 @@ public class DocumentoService : IDocumentoService
         if (version is null)
             return (false, "Versión no encontrada.", null, null);
 
-        var rutaCompleta = this.almacenamiento.ObtenerRutaCompleta(version.RutaArchivo);
-        if (!File.Exists(rutaCompleta))
+        try
+        {
+            var stream = await this.almacenamiento.ObtenerStreamAsync(version.RutaArchivo);
+            return (true, null, stream, version.NombreArchivoOriginal);
+        }
+        catch (System.IO.FileNotFoundException)
+        {
             return (false, "El archivo ya no existe en el almacenamiento.", null, null);
-
-        return (true, null, rutaCompleta, version.NombreArchivoOriginal); 
+        }
+        catch (Exception ex)
+        {
+            return (false, $"Error al recuperar el archivo: {ex.Message}", null, null);
+        }
     }
 
     public async Task<List<DocumentoResponseDto>?> GetByProyectoIdAsync(int proyectoId, int? asesorIdFiltro)

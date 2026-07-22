@@ -36,6 +36,27 @@ public class AlmacenamientoArchivos : IAlmacenamientoArchivos
     public string ObtenerRutaCompleta(string rutaRelativa) =>
         Path.Combine(this.carpetaBase, rutaRelativa);
 
+    public Task<Stream> ObtenerStreamAsync(string rutaRelativa)
+    {
+        var rutaCompleta = this.ObtenerRutaCompleta(rutaRelativa);
+        if (!File.Exists(rutaCompleta))
+        {
+            throw new FileNotFoundException("El archivo no existe en el disco local.", rutaCompleta);
+        }
+        Stream stream = new FileStream(rutaCompleta, FileMode.Open, FileAccess.Read, FileShare.Read);
+        return Task.FromResult(stream);
+    }
+
+    public Task EliminarAsync(string rutaRelativa)
+    {
+        var rutaCompleta = this.ObtenerRutaCompleta(rutaRelativa);
+        if (File.Exists(rutaCompleta))
+        {
+            File.Delete(rutaCompleta);
+        }
+        return Task.CompletedTask;
+    }
+
     private string SanitizarSegmento(string valor)
     {
         var invalidos = Path.GetInvalidFileNameChars();

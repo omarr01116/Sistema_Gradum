@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemGradum.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46ab59788d198df7e72e417a2a7a49d42f6c44f1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4fa195c5bf6af2da9565546a50fa026f1aafb5a")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemGradum.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemGradum.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
